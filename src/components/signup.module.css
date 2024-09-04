@@ -1,8 +1,4 @@
-.home-container {
-    position: relative;
-    height: 100%;
-  }
-  
+
 .message-logo {
     width: 100%;
     height: auto;
@@ -12,9 +8,6 @@
 
 .signup-form-container {
     display: flex;
-    position: absolute;
-    top: 0%;
-    left: 0%;
     width: 100%;
     height: 100%;
     justify-content: flex-end;
@@ -70,6 +63,16 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+}
+
+.signup-form-container .title {
+    background-color: var(--default-colour-light);
+    border: 2px solid var(--default-colour-soft-purple);
+    padding: 0.6em 0em 0.5em 0.3em;
+
+    margin: 0 0;
+    border-radius: 8%;
+    width: 100%;
 }
 
 .input-div {

@@ -40,7 +40,6 @@ function SignUp() {
 
   return (
     <>
-        <img src={messageIcon} className={styles['message-logo']} alt="logo messaging"></img>
         <div className={styles["signup-form-container"]}>
             <form onSubmit={handleFormSubmit}>
                 <h1 className={styles.title}>Sign Up</h1>

@@ -1,0 +1,91 @@
+@import url('/src/global.css');
+
+.home-container {
+    position: relative;
+    height: 100%;
+  }
+  
+  .message-logo {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    max-width: 840px;
+  }
+  
+  .login-form-container form, .login-form-container .title {
+    position: absolute;
+    top: 0%; /* Center vertically */
+    left: 0%; /* Center horizontally */
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .login-form-container .title {
+    color: var(--default-colour);
+    align-items: flex-start;
+    height: 100%;
+  }
+  
+  @media (min-width: 600px) and (max-width: 767px) {
+    .login-form-container .title {
+      font-size: 2.8em;
+      margin-block-start: 0.5em;
+    }
+  }
+  
+  @media (min-width: 500px) and (max-width: 600px) {
+    .login-form-container .title {
+      font-size: 2.5em;
+      margin-block-start: 0.4em;
+    }
+  }
+  
+  @media (min-width: 425px) and (max-width: 500px) {
+    .login-form-container .title {
+      font-size: 2.3em;
+      margin-block-start: 0.3em;
+    }
+  }
+  
+  @media (max-width: 425px) {
+    .login-form-container .title {
+      font-size: 2.5em;
+      margin-block-start: 0.3em;
+    }
+  
+    /*  CANNOT ACCESS GLOBAL VARIABLES IN A CSS MODULE FILE.
+    CREATED ComponentGlobalOverride and imported after global.css to alter styles to global.css
+    #root {
+      padding: 0;
+    }
+      */
+  }
+  
+  @media (max-width: 375px) {
+    .login-form-container .title {
+      font-size: 2em;
+      
+    }
+  }
+  
+  .login-form-container form {
+    flex-direction: column;
+    height: 100%;
+    gap: 1.5em;
+    align-items: center;
+    transform: translateY(-2%);
+  }
+  
+  .btn-container {
+    display: flex;
+    gap: 1em;
+  }
+  
+  .login-btn {
+    background-color: rgba(55,207,185,255);
+  }
+  
+  .signup-btn {
+    background-color: rgba(200,136,235,255)
+  }

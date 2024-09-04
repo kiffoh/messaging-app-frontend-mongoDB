@@ -1,0 +1,91 @@
+.home-container {
+    position: relative;
+    height: 100%;
+  }
+  
+.message-logo {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    max-width: 840px;
+}
+
+.signup-form-container {
+    display: flex;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+@media (min-width: 767px) {
+    .signup-form-container form {
+        margin-right: 10%;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+    .signup-form-container .title {
+        font-size: 2.8em;
+        margin-block-start: 0.5em;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+    .signup-form-container .title {
+        font-size: 2.5em;
+        margin-block-start: 0.4em;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 500px) {
+    .signup-form-container .title {
+        font-size: 2.3em;
+        margin-block-start: 0.3em;
+    }
+}
+
+@media (max-width: 425px) {
+    .signup-form-container .title {
+        font-size: 2.5em;
+        margin-block-start: 0.67em;
+    }
+
+    #root {
+        padding: 0;
+    }
+}
+
+@media (max-width: 375px) {
+    .signup-form-container .title {
+        font-size: 2em;   
+    }
+}
+
+.signup-form-container form {
+    flex-direction: column;
+    gap: 1.5em;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-div {
+    display: grid;
+    gap: 1.5em;
+}
+
+.btn-container {
+    display: flex;
+    gap: 1em;
+}
+
+.login-btn {
+    background-color: rgba(55,207,185,255);
+}
+
+.signup-btn {
+    background-color: rgba(200,136,235,255)
+}

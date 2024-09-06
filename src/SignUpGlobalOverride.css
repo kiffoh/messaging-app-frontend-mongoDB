@@ -6,9 +6,42 @@
 }
 
 body {
-    background-image: url('./assets/SignUp/messageIcon.jpg');
+    background-image: url('./assets/SignUp/messageIconLeft.jpg');
     background-repeat: no-repeat;                    /* Prevent the image from repeating */
     background-size:contain;                          /* Scale the image to cover the entire area */
     background-position: left;                     /* Center the image */
     background-attachment: fixed;                    /* Make the background image fixed on scroll */
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+@media (min-width: 1360px) {
+    body {
+        background-image: url('./assets/SignUp/messageIconLeft.jpg'), url('./assets/SignUp/messageIconRight.jpg');
+        background-repeat: no-repeat;                    /* Prevent the image from repeating */
+        background-size:contain;                          /* Scale the image to cover the entire area */
+        background-position: left, right;                     /* Center the image */
+        background-attachment: fixed;                    /* Make the background image fixed on scroll */
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+}
+
+@media (max-width: 740px) {
+    body {
+        background-image: url('./assets/SignUp/messageIconLeft.jpg');
+        background-repeat: no-repeat;                    /* Prevent the image from repeating */
+        background-size:auto;                          /* Scale the image to cover the entire area */
+        background-position: left;                     /* Center the image */
+        background-attachment:fixed;                    /* Make the background image fixed on scroll */
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+}
+
+
+@media (max-width: 550px) {
+    body {
+        background-image: none;
+    }
 }

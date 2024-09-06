@@ -28,6 +28,13 @@
     gap: 1.5em;
     width: 100%;
     justify-items: center;
+    height: 100%;
+    align-content: center;
+}
+
+.input-div-container {
+    height: 40%;
+    width: 100%;
 }
 
 .input-div > * {
@@ -129,8 +136,8 @@ button {
 
 @media (min-width: 550px) and (max-width: 800px) {
     .signup-form-wrapper {
-        background-color: var(--default-colour-light);
-        border-left: 2px solid var(--default-colour)
+        background-color: var(--default-colour-green);
+        border-left: 3px solid var(--default-colour-soft-green)
     }
 
     .signup-form-container form {
@@ -138,12 +145,19 @@ button {
     }
 
     .input-div {
-        height: 40%;
+        height: 100%;
+        width: 100%;
         background-color: var(--default-colour-green);
         justify-content: center;
         align-content: center;
-        border-top: 2px solid var(--default-colour);
-        border-bottom: 2px solid var(--default-colour);
+        align-items: center;
+        border-radius: 0 8% 8% 0;
+    }
+
+    .input-div-container {
+        height: 40%;
+        width: 100%;
+        background-color: var(--default-colour-light);
     }
 
     .signup-btn {

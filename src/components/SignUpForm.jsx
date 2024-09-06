@@ -47,35 +47,37 @@ function SignUp() {
                     <div className={styles['title-div']}>
                         <h1 className={styles.title}>Sign Up</h1>
                     </div>
-                    <div className={styles['input-div']}>
-                        {error && <h3>{error}</h3>}
-                        <div className={styles['username']}>
-                            <label className={styles['username-label']}
-                                htmlFor='username'
-                            >
-                                Username
-                            </label>
-                            <input 
-                                type='text'
-                                name='username'
-                                placeholder='Username'
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                            />
-                        </div>
-                        <div className={styles['password']}>
-                            <label className={styles['password-label']}
-                                htmlFor='password'
-                            >
-                                Password
-                            </label>
-                            <input
-                                type='password'
-                                name='password'
-                                placeholder='*********'
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                            />
+                    <div className={styles['input-div-container']}>
+                        <div className={styles['input-div']}>
+                            {error && <h3>{error}</h3>}
+                            <div className={styles['username']}>
+                                <label className={styles['username-label']}
+                                    htmlFor='username'
+                                >
+                                    Username
+                                </label>
+                                <input 
+                                    type='text'
+                                    name='username'
+                                    placeholder='Username'
+                                    value={username}
+                                    onChange={e => setUsername(e.target.value)}
+                                />
+                            </div>
+                            <div className={styles['password']}>
+                                <label className={styles['password-label']}
+                                    htmlFor='password'
+                                >
+                                    Password
+                                </label>
+                                <input
+                                    type='password'
+                                    name='password'
+                                    placeholder='*********'
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className={styles['btn-container']}>

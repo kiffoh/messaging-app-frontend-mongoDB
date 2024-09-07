@@ -2,7 +2,7 @@
   .login-form-container {
     background-color: var(--default-colour-light);
     border-radius: 8%;
-    padding: 1em 1.5em 1.5em 1.5em;
+    padding: 0 1.5em 1.5em 1.5em;
     border: 2px solid var(--default-colour);
   }
   
@@ -10,7 +10,6 @@
     color: var(--default-colour);
   }
 
- 
     /*  CANNOT ACCESS GLOBAL VARIABLES IN A CSS MODULE FILE.
     CREATED ComponentGlobalOverride and imported after global.css to alter styles to global.css
     #root {

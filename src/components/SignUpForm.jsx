@@ -84,12 +84,6 @@ function SignUp() {
                             <button type='submit' className={styles['signup-btn']}>Create Account</button>
                         </div>
                     </form>
-                    {/*
-                        <div className={styles['storyset-div']}>
-                            <img src={storySetPic} media="(min-width: 1024px)" alt="Sign Up Illustration" className={styles['storyset-pic']}/>
-                            <a href="https://storyset.com/app" className={styles['storyset-link']} media="(min-width: 1024px)">App illustrations by Storyset</a>
-                        </div>
-                    */}     
                 </div>  
             </div>
         </div>

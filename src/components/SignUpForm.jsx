@@ -40,59 +40,59 @@ function SignUp() {
     }
     
     return (
-    <>  
-        <div className={styles["signup-form-container"]}>
-            <div className={styles['signup-form-wrapper']}>
-                <form onSubmit={handleFormSubmit}>
-                    <div className={styles['title-div']}>
-                        <h1 className={styles.title}>Sign Up</h1>
-                    </div>
-                    <div className={styles['input-div-container']}>
-                        <div className={styles['input-div']}>
-                            {error && <h3>{error}</h3>}
-                            <div className={styles['username']}>
-                                <label className={styles['username-label']}
-                                    htmlFor='username'
-                                >
-                                    Username
-                                </label>
-                                <input 
-                                    type='text'
-                                    name='username'
-                                    placeholder='Username'
-                                    value={username}
-                                    onChange={e => setUsername(e.target.value)}
-                                />
-                            </div>
-                            <div className={styles['password']}>
-                                <label className={styles['password-label']}
-                                    htmlFor='password'
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    type='password'
-                                    name='password'
-                                    placeholder='*********'
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                />
+    <>  <div className={styles['signup-body']}>
+            <div className={styles["signup-form-container"]}>
+                <div className={styles['signup-form-wrapper']}>
+                    <form onSubmit={handleFormSubmit}>
+                        <div className={styles['title-div']}>
+                            <h1 className={styles.title}>Sign Up</h1>
+                        </div>
+                        <div className={styles['input-div-container']}>
+                            <div className={styles['input-div']}>
+                                {error && <h3>{error}</h3>}
+                                <div className={styles['username']}>
+                                    <label className={styles['username-label']}
+                                        htmlFor='username'
+                                    >
+                                        Username
+                                    </label>
+                                    <input 
+                                        type='text'
+                                        name='username'
+                                        placeholder='Username'
+                                        value={username}
+                                        onChange={e => setUsername(e.target.value)}
+                                    />
+                                </div>
+                                <div className={styles['password']}>
+                                    <label className={styles['password-label']}
+                                        htmlFor='password'
+                                    >
+                                        Password
+                                    </label>
+                                    <input
+                                        type='password'
+                                        name='password'
+                                        placeholder='*********'
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className={styles['btn-container']}>
-                        <button type='submit' className={styles['signup-btn']}>Create Account</button>
-                    </div>
-                </form>
-                {/*
-                    <div className={styles['storyset-div']}>
-                        <img src={storySetPic} media="(min-width: 1024px)" alt="Sign Up Illustration" className={styles['storyset-pic']}/>
-                        <a href="https://storyset.com/app" className={styles['storyset-link']} media="(min-width: 1024px)">App illustrations by Storyset</a>
-                    </div>
-                */}     
-            </div>  
+                        <div className={styles['btn-container']}>
+                            <button type='submit' className={styles['signup-btn']}>Create Account</button>
+                        </div>
+                    </form>
+                    {/*
+                        <div className={styles['storyset-div']}>
+                            <img src={storySetPic} media="(min-width: 1024px)" alt="Sign Up Illustration" className={styles['storyset-pic']}/>
+                            <a href="https://storyset.com/app" className={styles['storyset-link']} media="(min-width: 1024px)">App illustrations by Storyset</a>
+                        </div>
+                    */}     
+                </div>  
+            </div>
         </div>
-        
     </>
   )
 }

@@ -3,6 +3,7 @@ import ErrorPage from "../ErrorPage";
 import Home from "../Home";
 import App from "../App"
 import SignUp from "../components/SignUpForm";
+import UserProfile from "../components/UserProfile";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: '/signup',
         element: <SignUp />
+    },
+    {
+        path: '/userprofile',
+        element: <UserProfile />
     }
 ])
 

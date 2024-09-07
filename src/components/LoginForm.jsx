@@ -46,33 +46,31 @@ function LogIn() {
 
   return (
     <>
-        <picture>
-            <source srcSet={messageIconCropped} media="(max-width: 426px)" />
-            <img src={messageIcon} className={styles['message-logo']} alt="logo messaging"></img>
-        </picture>
-        <div className={styles["login-form-container"]}>
-            <h1 className={styles.title}>Log In</h1>
-            {error && <h3>{error}</h3>}
-            <form onSubmit={handleFormSubmit}>
-                <input 
-                    type='text'
-                    name='username'
-                    placeholder='Username'
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                />
-                <input
-                    type='password'
-                    name='password'
-                    placeholder='*********'
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <div className={styles['btn-container']}>
-                    <button onClick={navigateSignUp} className={styles['signup-btn']}>Sign Up</button>
-                    <button type='submit' className={styles['login-btn']}>Log In</button>
-                </div>
-            </form>       
+        <div className={styles['login-body']}>
+            <div className={styles["login-form-container"]}>
+                <h1 className={styles.title}>Log In</h1>
+                {error && <h3>{error}</h3>}
+                <form onSubmit={handleFormSubmit}>
+                    <input 
+                        type='text'
+                        name='username'
+                        placeholder='Username'
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                    <input
+                        type='password'
+                        name='password'
+                        placeholder='*********'
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                    <div className={styles['btn-container']}>
+                        <button onClick={navigateSignUp} className={styles['signup-btn']}>Sign Up</button>
+                        <button type='submit' className={styles['login-btn']}>Log In</button>
+                    </div>
+                </form>       
+            </div>
         </div>
     </>
   )

@@ -8,9 +8,7 @@ function Home() {
         (user ? (
             null
         ) : (
-            <div className={styles["home-container"]}>
-                <LogIn />
-            </div>
+            <LogIn />
         ))
     )
 }

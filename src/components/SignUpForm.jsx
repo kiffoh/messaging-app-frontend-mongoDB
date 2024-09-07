@@ -2,7 +2,6 @@ import { useState } from 'react'
 import '../global.css'
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
-import storySetPic from '../assets/SignUp/Prototyping process-pana.png'
 import styles from './signup.module.css'
 import '../SignUpGlobalOverride.css'
 

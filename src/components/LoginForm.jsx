@@ -2,8 +2,6 @@ import { useState } from 'react'
 import '../global.css'
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
-import messageIcon from '../assets/LogIn/messagingIcon.jpg'
-import messageIconCropped from '../assets/LogIn/messagingIconCropped.jpg'
 import styles from './login.module.css'
 import '../LogInGlobalOverride.css'
 

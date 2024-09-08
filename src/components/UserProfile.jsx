@@ -1,17 +1,20 @@
+import { useEffect, useState } from 'react';
 import NavBar from './navbar';
 import styles from './userprofile.module.css'
+import useAuth from '../Authentification/useAuth';
 
 function UserProfile() {
     // I want to import the navbar and footer I use from the Homepage into here
-    const user = {username:'default', createdAt: '07-09-2024', photo:null, bio: 'This will be the user bio.'}
-
+    const {user} = useAuth();
+    
     return (
         <>
             <NavBar />
             <div className={styles['userprofile-body']}>
-                <h3>User Profile</h3>
+                <h2>User Profile</h2>
+                {/*error && <h3>{error}</h3>*/}
                 <div className={styles['user-photo-container']}>
-                    <img src={user.photo} alt='user-photo' className={styles['user-photo']}></img>
+                    <img src={user.userPhoto} alt='user-photo' className={styles['user-photo']}></img>
                 </div>
                 <h1 className={styles.username}>{user.username}</h1>
                 <h3>{user.bio}</h3>

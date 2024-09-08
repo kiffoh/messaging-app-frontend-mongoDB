@@ -1,7 +1,17 @@
 import messageIcon from '../assets/NavBar/messagingIcon.jpg'
 import styles from './navbar.module.css'
+import useAuth from '../Authentification/useAuth';
+import { useEffect, useState } from 'react';
 
 function NavBar() {
+    const {user} = useAuth();
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        if (user) {
+            setUserId(user.id);
+        }
+    }, [user])
 
     return (
         <div className={styles['navbar-body']}>
@@ -9,10 +19,10 @@ function NavBar() {
                 <img src={messageIcon} alt='message logo' className={styles['message-logo']}/>
             </div>
             <div className={styles.links}>
-                <a href='/home'>Messages</a>
+                <a href='/'>Messages</a>
                 <div className={styles['profile-links']}>
-                    <a href='/userprofile'>Profile</a>
-                    <a href='/signout'>Sign Out</a>
+                    <a href={`/users/${userId}/profile`}>Profile</a>
+                    <a href='/users/signout'>Sign Out</a>
                 </div>
             </div>
         </div>

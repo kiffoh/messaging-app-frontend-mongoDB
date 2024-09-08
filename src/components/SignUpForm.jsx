@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
 import styles from './signup.module.css'
 import '../SignUpGlobalOverride.css'
+const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function SignUp() {
     const [username, setUsername] = useState('');
@@ -11,9 +12,16 @@ function SignUp() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const handleFormSubmit = async () => {
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+
+        if ( !username.trim() || !password.trim()) {
+            setError('Username and password are required.');
+            return;
+        }
+
         try {
-            const response = await fetch(`${backendURL}/signup`, {
+            const response = await fetch(`${backendURL}/users/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,6 +32,8 @@ function SignUp() {
 
             if (response.ok) {
                 const data = await response.json();
+                console.log('Response okay: ', data)
+                /*
                 const token = data.token;
 
                 // Store in local storage
@@ -32,6 +42,7 @@ function SignUp() {
                 const decodedToken = jwtDecode(token);
                 // Navigate to the page where user can input bio, pic and ect.
                 navigate(`/user/${userId}/account`);
+                */
             }
         } catch (err) {
             setError('Log in failed. Please try again.')

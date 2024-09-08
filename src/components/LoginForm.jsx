@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
 import styles from './login.module.css'
 import '../LogInGlobalOverride.css'
-
+const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function LogIn() {
     const [username, setUsername] = useState('');
@@ -12,9 +12,16 @@ function LogIn() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const handleFormSubmit = async () => {
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!username.trim() || !password.trim()) {
+            setError('Username and password are required.');
+            return;
+        }
+
         try {
-            const response = await fetch(`${backendURL}/login`, {
+            const response = await fetch(`${backendURL}/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,6 +38,7 @@ function LogIn() {
                 localStorage.setItem('token', token);
 
                 const decodedToken = jwtDecode(token);
+                console.log(decodedToken)
                 navigate('/');
             }
         } catch (err) {

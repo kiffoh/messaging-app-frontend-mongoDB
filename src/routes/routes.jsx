@@ -1,29 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../ErrorPage";
 import Home from "../Home";
-import App from "../App"
-import SignUp from "../components/SignUpForm";
-import UserProfile from "../components/UserProfile";
+import { AuthProvider } from "../Authentification/AuthContext";
+import userRoutes from './userRoutes'
+import UserLayout from "../layouts/UserLayout";
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />,
-    },
-    {
-        path: '/login',
-        element: (
-            <Home />
+        element: (<AuthProvider>
+                    <Home />
+                </AuthProvider>
         ),
         errorElement: <ErrorPage />
     },
     {
-        path: '/signup',
-        element: <SignUp />
-    },
-    {
-        path: '/userprofile',
-        element: <UserProfile />
+        path: '/users',
+        element: (<AuthProvider>
+                    <UserLayout />
+                </AuthProvider>
+        ),
+        children: userRoutes,
     }
 ])
 

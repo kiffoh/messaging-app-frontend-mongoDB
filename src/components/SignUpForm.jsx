@@ -1,16 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../global.css'
 import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'
 import styles from './signup.module.css'
 import '../SignUpGlobalOverride.css'
+import useAuth from '../Authentification/useAuth';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function SignUp() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const {user} = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    })
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -33,24 +40,25 @@ function SignUp() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Response okay: ', data)
-                /*
+                
                 const token = data.token;
-
+                const user = data.user;
                 // Store in local storage
                 localStorage.setItem('token', token);
 
-                const decodedToken = jwtDecode(token);
+                const userId = user.id;
                 // Navigate to the page where user can input bio, pic and ect.
-                navigate(`/user/${userId}/account`);
-                */
+                navigate(`/users/${userId}/profile`);
             }
         } catch (err) {
-            setError('Log in failed. Please try again.')
+            console.log(err);
+            setError('Sign Up failed. Please try again.')
         }
     }
     
     return (
-    <>  <div className={styles['signup-body']}>
+    <>  
+        <div className={styles['signup-body']}>
             <div className={styles["signup-form-container"]}>
                 <div className={styles['signup-form-wrapper']}>
                     <form onSubmit={handleFormSubmit}>

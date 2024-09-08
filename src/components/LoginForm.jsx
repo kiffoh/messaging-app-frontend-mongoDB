@@ -1,16 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../global.css'
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
 import styles from './login.module.css'
 import '../LogInGlobalOverride.css'
+import useAuth from '../Authentification/useAuth';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function LogIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const {user} = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    })
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -47,7 +55,7 @@ function LogIn() {
     }
 
     const navigateSignUp = () => {
-        navigate('/signup');
+        navigate('/users/signup');
     }
 
   return (

@@ -1,6 +1,7 @@
 import LogIn from "../components/LoginForm";
 import UserProfile from "../components/UserProfile";
 import SignUp from '../components/SignUpForm';
+import SignOut from "../components/SignOut";
 
 const userRoutes = [
     {
@@ -14,6 +15,10 @@ const userRoutes = [
     {
         path: ':userId/profile',
         element: <UserProfile />
+    },
+    {
+        path: 'signout',
+        element: <SignOut />
     }
 ]
 

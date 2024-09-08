@@ -37,8 +37,14 @@ export function AuthProvider({ children }) {
         checkTokenValidity();
     }, [location]);
 
+    // Sign out function
+    const signOut = () => {
+        localStorage.removeItem('token');
+        setUser(null);
+    };
+
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, signOut }}>
             {children}
         </AuthContext.Provider>
     );

@@ -181,6 +181,7 @@ button {
     overflow-y: hidden;
     width: 100%;
     height: 100%;
+    background-color: var(--default-colour-light-2);
 }
 
 @media (min-width: 1360px) {

@@ -2,6 +2,17 @@
     width: 8em;
 }
 
+.profile-picture, .profile-picture-highlighted {
+    width: 5em;
+    border-radius: 50%;
+    border: 2px solid transparent;
+}
+
+
+.profile-picture-highlighted {
+    border: 2px solid var(--default-colour-soft-purple);
+}
+
 .navbar-body {
     background-color: var(--default-colour-light-2);
     display: grid;
@@ -16,7 +27,28 @@
     padding-right: 5em;
 }
 
+.profile-container {
+    position: relative;
+    display: inline-block;
+}
+
 .profile-links {
+    position: absolute;
+    top: 100%; /* Positions the links directly below the image */
+    left: 50%; /* Moves the element to the horizontal center */
+    transform: translateX(-50%); /* Centers the element by shifting it back by 50% of its width */
     display: flex;
-    gap: 5em;
+    justify-content: center;
+    gap: 1em;
+    background-color: var(--default-colour-light-2); /* Add background if needed */
+    padding: 1em; /* Optional padding */
+    border-radius: 0.5em; /* Optional rounding */
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1); /* Optional shadow */
+    width: 9em;
+    border: 2px solid var(--default-colour-soft-purple);
+
+    /*
+    display: flex;
+    gap: 1em;
+    */
 }

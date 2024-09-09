@@ -80,7 +80,7 @@ function LogIn() {
                         onChange={e => setPassword(e.target.value)}
                     />
                     <div className={styles['btn-container']}>
-                        <button onClick={navigateSignUp} className={styles['signup-btn']}>Sign Up</button>
+                        <button type='button' onClick={navigateSignUp} className={styles['signup-btn']}>Sign Up</button>
                         <button type='submit' className={styles['login-btn']}>Log In</button>
                     </div>
                 </form>       

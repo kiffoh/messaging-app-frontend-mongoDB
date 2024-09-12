@@ -1,0 +1,38 @@
+.app-body {
+    width: 100%;
+    background-color: var(--default-colour-light-2);
+    color: var(--default-colour);
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+@media (min-width: 800px) {
+    .app-body{
+        grid-template-columns: 1fr 3fr;
+    }
+}
+.chat-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-bar {
+    padding: 0 1em
+}
+
+.user-chat {
+    margin: 2em 0;
+    border-top: 2px solid var(--default-colour-light);
+    border-top: 2px solid var(--default-colour-light);
+}
+
+.chat-name {
+    font-weight: bold;
+}
+
+.app-root {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+}

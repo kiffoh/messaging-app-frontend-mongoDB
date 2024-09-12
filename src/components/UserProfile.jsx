@@ -63,7 +63,7 @@ function UserProfile() {
                             }
                             <img src={editLogo} alt='Edit logo' className={styles['edit-logo']} onClick={() => setEditBio(!editBio)} draggable='false'/>
                         </div>
-                        <h5>User Created: {user.createdAt}</h5>
+                        <h5>User Created: {user.createdAtTime}, {user.createdAtDate}</h5>
                     </>}
                 </div>
             </div>

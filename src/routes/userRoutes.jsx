@@ -14,7 +14,7 @@ const userRoutes = [
     },
     {
         path: ':userId/profile',
-        element: <UserProfile />
+        element: <UserProfile group={false}/>
     },
     {
         path: 'signout',

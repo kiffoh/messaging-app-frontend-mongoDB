@@ -25,7 +25,6 @@ function App() {
         if (response.ok) {
           const data = await response.json()
           setUserChats(data);
-
         } else {
           setError("An error occurred when fetching the user's messages.")
         }
@@ -75,19 +74,32 @@ function App() {
             {error && <h3>{error}</h3>}
             <button onClick={() => setNewChat(true)}>New Chat</button>
           </div>
-          {userChats.length > 0 && userChats.map((chat) => (
+          {userChats.length > 0 ? (
+            userChats
+            .filter(chat => chat.messages.length > 0) // Filter out chats with no messages
+            .map((chat) => (
               <div 
                 className={styles['user-chat']} 
                 key={chat.id} 
                 onClick={() => setDisplayedChatId(chat.id)}
               >
                 <p className={styles['chat-name']}>{chat.name}</p>
-                <p>{chat.messages[0].content || 'No messages yet'}</p>
-              </div>  
-          ))}
+                <p>{chat.messages[0].content}</p> {/* Optional chaining */}
+              </div>
+            ))
+          ) : (
+            <p>No chats available</p>
+          )}
         </div>
-        <ChatContainer user={user} displayedChat={displayedChat} setDisplayedChat={setDisplayedChat} newChat={newChat} setNewChat={setNewChat} userChats={userChats}/>
-        {/* displayedChat && <Chat chat={displayedChat} user={user} /> */}
+        <ChatContainer
+          user={user}
+          displayedChat={displayedChat}
+          setDisplayedChat={setDisplayedChat}
+          newChat={newChat}
+          setNewChat={setNewChat}
+          userChats={userChats}
+          setDisplayedChatId={setDisplayedChatId}
+        />
       </div>
     </div>
   )

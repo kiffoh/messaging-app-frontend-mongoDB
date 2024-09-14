@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './chat.module.css'
+import styles from './displayedChat.module.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL; 

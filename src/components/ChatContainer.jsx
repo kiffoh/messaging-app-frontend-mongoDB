@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Chat from './Chat'; // Import your Chat component
+import Chat from './DisplayedChat'; // Import your Chat component
 import styles from './chatContainer.module.css'
 import axios from 'axios';
 import DirectMessage from './DirectMessage';

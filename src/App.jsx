@@ -99,6 +99,7 @@ function App() {
           setNewChat={setNewChat}
           userChats={userChats}
           setDisplayedChatId={setDisplayedChatId}
+          setUserChats={setUserChats}
         />
       </div>
     </div>

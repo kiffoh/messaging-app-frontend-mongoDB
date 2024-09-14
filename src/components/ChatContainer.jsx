@@ -4,7 +4,7 @@ import axios from 'axios';
 import DirectMessage from './DirectMessage';
 import DisplayedChat from './DisplayedChat';
 
-function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats, setDisplayedChatId }) {
+function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats, setDisplayedChatId, setUserChats }) {
     const [error, setError] = useState(false)
     const [search, setSearch] = useState('')
     const [contacts, setContacts] = useState([]) // Need id's names and photos
@@ -47,6 +47,7 @@ function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewC
                     userChats={userChats}
                     user={user}
                     setDisplayedChatId={setDisplayedChatId}
+                    setUserChats={setUserChats}
                 />
 
             ) : (

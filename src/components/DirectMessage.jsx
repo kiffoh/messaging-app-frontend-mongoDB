@@ -3,7 +3,7 @@ import styles from './chatContainer.module.css'
 import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL
 
-function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId}) {
+function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats}) {
     const [error, setError] = useState(null);
     const directMessageChats = userChats.filter(chat => chat.directMsg === true);
 
@@ -19,21 +19,26 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
 
     async function handleFormSubmit(recipient) {
         const existingChat  = findUserChat(recipient)
+        console.log(existingChat)
 
         if (existingChat) {
             setDisplayedChat(existingChat);
             setDisplayedChatId(existingChat.id);
         } else {
             try {
-                console.log('Triggering try loop')
-                // Need to filter this so that the direct message can be found e.g. search through members
                 const response = await axios.post(`${backendURL}/groups/create`, {
                     members: [user, recipient]
                 });
 
-                if (response.status === 201) { // Check for successful creation
-                    const data = await response.json(); // Parse JSON data
-                    setDisplayedChat(data.newGroup); // Assuming response contains the new group in 'newGroup'
+                console.log(response)
+
+                if (response.status === 200 || response.status === 201) {
+                    console.log('GOING THROUGH RESPONSE')
+                    const data = response.data;
+                    
+                    setDisplayedChat(data.newGroup || data.existingDM);
+
+                    setUserChats(prevChats => [...prevChats, data.newGroup || data.existingDM]);
                 } else {
                     setError('Failed to create the chat.');
                 }

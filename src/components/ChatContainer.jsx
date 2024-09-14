@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import Chat from './DisplayedChat'; // Import your Chat component
 import styles from './chatContainer.module.css'
 import axios from 'axios';
 import DirectMessage from './DirectMessage';
+import DisplayedChat from './DisplayedChat';
 
 function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats }) {
     const [error, setError] = useState(false)
@@ -40,7 +40,7 @@ function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewC
             {newChat ? (
                 <DirectMessage setNewChat={setNewChat} serach={search} setSearch={setSearch} filteredContacts={filteredContacts} setDisplayedChat={setDisplayedChat}/>
             ) : (
-                displayedChat && <Chat chat={displayedChat} user={user} />
+                displayedChat && <DisplayedChat displayedChat={displayedChat} user={user} />
             )}
         </>
     );

@@ -5,7 +5,7 @@ import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL; 
 
 
-function Chat({chat, user}) {
+function DisplayedChat({displayedChat, user}) {
     const [profileInformation, setProfileInformation] = useState('select for contact info');
     const [fadeOut, setFadeOut] = useState(false); // Added state for fading
 
@@ -21,9 +21,9 @@ function Chat({chat, user}) {
         if (message.trim() === '') return;
 
         try {
-            const response = await axios.post(`${backendURL}/messages/${chat.id}`, {
+            const response = await axios.post(`${backendURL}/messages/${displayedChat.id}`, {
                 content: message,
-                groupId: chat.id,
+                groupId: displayedChat.id,
                 authorId: user.id
             });
     
@@ -45,11 +45,11 @@ function Chat({chat, user}) {
     
 
     function displayGroupInfo() {
-        if (chat.members.length == 2) { // For direct message
-            const reciepient = chat.members.filter(member => member.id != user.id)[0]
+        if (displayedChat.members.length == 2) { // For direct message
+            const reciepient = displayedChat.members.filter(member => member.id != user.id)[0]
             navigate(`/users/${reciepient.id}/profile`);
         } else { // For groupChats
-            navigate(`/groups/${chat.id}/profile`);
+            navigate(`/groups/${displayedChat.id}/profile`);
         }
     }
 
@@ -62,15 +62,15 @@ function Chat({chat, user}) {
         }, 3000); // Time before fading starts
         
         return () => clearTimeout(timer); // Clean up timer on unmount
-    }, [chat])
+    }, [displayedChat])
 
     return (
         <div className={styles['chat-root']}>
             <div className={styles['chat-profile-container']} >
                 <div className={styles['chat-header']} onClick={displayGroupInfo}>
-                    <img src={chat.photo} alt='chat photo' className={styles['chat-photo']} draggable='false' />
+                    <img src={displayedChat.photo} alt='chat photo' className={styles['chat-photo']} draggable='false' />
                     <div className={styles['chat-name-container']}>
-                        <h2 className={styles['chat-name']}>{chat.name}</h2>
+                        <h2 className={styles['chat-name']}>{displayedChat.name}</h2>
                         {profileInformation && (
                             <p className={`${styles['profile-info']} ${fadeOut ? styles['fade-out'] : ''}`}>
                                 {profileInformation}
@@ -80,7 +80,7 @@ function Chat({chat, user}) {
                 </div>
             </div>
             <div className={styles['chat-body']}>
-                {chat.messages.map(message => (
+                {displayedChat.messages.map(message => (
                     <div 
                         key={message.id}
                         className={styles[message.authorId === user.id ? 'user-chat-container' : 'responder-chat-container']}
@@ -109,4 +109,4 @@ function Chat({chat, user}) {
     )
 }
 
-export default Chat;
+export default DisplayedChat;

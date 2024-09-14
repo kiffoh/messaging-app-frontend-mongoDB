@@ -18,7 +18,8 @@
 }
 
 .chat-bar {
-    padding: 0 1em
+    padding: 0 1em;
+    user-select: none;
 }
 
 .user-chat {

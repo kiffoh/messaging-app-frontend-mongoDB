@@ -36,11 +36,16 @@
 }
 
 .chat-header {
+    margin-bottom: 0.5em;
+    min-height: 75.81px;
     display: flex;
     align-items: center;
     gap: 1em;
-    margin-bottom: 0.5em;
-    min-height: 75.81px;
+}
+
+.chat-profile-container {
+    display: flex;
+    user-select: none;
 }
 
 .chat-name {
@@ -50,12 +55,19 @@
 .profile-info {
     font-size: small;
     margin: 0;
+    opacity: 1;
+    transition: opacity 1s ease-in-out; /* Adjust duration and easing as needed */
+}
+
+.profile-info.fade-out {
+    opacity: 0;
 }
 
 .chat-name-container {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    
 }
 
 .chat-root {

@@ -2,21 +2,48 @@ import { useEffect, useState } from 'react';
 import NavBar from './navbar';
 import styles from './userprofile.module.css'
 import useAuth from '../Authentification/useAuth';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+const backendURL = import.meta.env.VITE_SERVER_URL;
 
-function UserProfile() {
+
+function UserProfile({group}) {
     // I want to import the navbar and footer I use from the Homepage into here
     const {user} = useAuth();
+    const {userId} = useParams();
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const [userData, setUserData] = useState(null);
+
+
     const [profilePic, setProfilePic] = useState('');
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
+    
 
     useEffect(() => {
-        if (user) {
-            setProfilePic(user.userPhoto);
-            setUsername(user.username);
-            setBio(user.bio);
+        async function fetchUserProfile() {
+            if (user && userId === user.id) {
+                setUserData(user)
+            } 
+            else {
+                try {
+                    const response = await axios.get(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`);
+                    setUserData(response.data)
+                } catch (error) {
+                    setError('An unknown error occured')
+                    console.error('Error fetching data:', error);
+                  }
+            }
         }
-    }, [user])
+        fetchUserProfile();
+
+    }, [user, userId])
+
+    useEffect(() => {
+        console.log(userData)
+    }, [userData])
 
     const [editProfilePic, setEditProfilePic] = useState(false);
     const [editUsername, setEditUsername] = useState(false);
@@ -28,12 +55,12 @@ function UserProfile() {
             <NavBar />
             <div className={styles['userprofile-body']}>
                 <div className={styles['userprofile-flexbox']}>
-                    <h2>User Profile</h2>
-                    {/*error && <h3>{error}</h3>*/}
-                    {user && 
+                    <h2>{group ? 'Group' : 'User'} Profile</h2>
+                    {error && <h3>{error}</h3>}
+                    {userData && 
                     <>
                         <div className={styles['user-photo-container']}>
-                            <img src={user.userPhoto} alt='user-photo' className={styles['user-photo']} draggable='false'></img>
+                            <img src={userData.photo} alt='user-photo' className={styles['user-photo']} draggable='false'></img>
                             <img src={editLogo} alt='Edit logo' className={styles['edit-logo-photo']} onClick={() => setEditProfilePic(!editProfilePic)} draggable='false'/>
                         </div>
                         <div className={styles['username-container']}>
@@ -45,7 +72,7 @@ function UserProfile() {
                                 onChange={e => setUsername(e.target.value)}
                             />
                             :
-                            <h1 className={styles.username}>{user.username}</h1>
+                            <h1 className={styles.username}>{group ? userData.name : userData.username}</h1>
                             }
                             
                             <img src={editLogo} alt='Edit logo' className={styles['edit-logo']} onClick={() => setEditUsername(!editUsername)} draggable='false'/>
@@ -59,11 +86,11 @@ function UserProfile() {
                                 onChange={e => setBio(e.target.value)}
                             />
                             :
-                            <h3>{user.bio}</h3>
+                            <h3>{userData.bio}</h3>
                             }
                             <img src={editLogo} alt='Edit logo' className={styles['edit-logo']} onClick={() => setEditBio(!editBio)} draggable='false'/>
                         </div>
-                        <h5>User Created: {user.createdAtTime}, {user.createdAtDate}</h5>
+                        <h5>{group ? 'Group' : 'User'} Created: {userData.createdAtTime}, {userData.createdAtDate}</h5>
                     </>}
                 </div>
             </div>

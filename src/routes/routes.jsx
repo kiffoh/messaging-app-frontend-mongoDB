@@ -4,6 +4,7 @@ import Home from "../Home";
 import { AuthProvider } from "../Authentification/AuthContext";
 import userRoutes from './userRoutes'
 import UserLayout from "../layouts/UserLayout";
+import groupRoutes from "./groupRoutes";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
                 </AuthProvider>
         ),
         children: userRoutes,
+    },
+    {
+        path: '/groups',
+        element: (<AuthProvider>
+            <UserLayout />
+        </AuthProvider>
+        ),
+        children: groupRoutes,
     }
 ])
 

@@ -11,9 +11,8 @@ function NavBar() {
 
     useEffect(() => {
         if (user) {
-            console.log(user)
             setUserId(user.id);
-            setUserPhoto(user.userPhoto);
+            setUserPhoto(user.photo);
         }
     }, [user])
 

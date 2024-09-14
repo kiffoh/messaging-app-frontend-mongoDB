@@ -17,6 +17,7 @@
     background-color: var(--default-colour-light-2);
     display: grid;
     grid-template-columns: auto 1fr;
+    user-select: none;
 }
 
 .links {

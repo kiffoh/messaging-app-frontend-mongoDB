@@ -30,15 +30,13 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
                     members: [user, recipient]
                 });
 
-                console.log(response)
-
                 if (response.status === 200 || response.status === 201) {
                     console.log('GOING THROUGH RESPONSE')
-                    const data = response.data;
+                    const data = response.data.newGroup || response.data.existingDM;
                     
-                    setDisplayedChat(data.newGroup || data.existingDM);
-
-                    setUserChats(prevChats => [...prevChats, data.newGroup || data.existingDM]);
+                    setDisplayedChat(data);
+                    setDisplayedChatId(data.id);
+                    setUserChats(prevChats => [data, ...prevChats]);
                 } else {
                     setError('Failed to create the chat.');
                 }

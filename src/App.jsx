@@ -3,17 +3,19 @@ import './global.css'
 import NavBar from './components/navbar'
 import styles from './app.module.css'
 import useAuth from './Authentification/useAuth'
-import Chat from './components/chat'
+import axios from 'axios'
+import ChatContainer from './components/ChatContainer'
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function App() {
   const [userChats, setUserChats] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-  const {user} = useAuth();
+  const {user, setUser} = useAuth();
 
   const [displayedChatId, setDisplayedChatId] = useState(null);
   const [displayedChat, setDisplayedChat] = useState(null);
+  const [newChat, setNewChat] = useState(false); // State to toggle between chat and form
 
   useEffect(() => {
     async function fetchUserMessages() {
@@ -22,8 +24,6 @@ function App() {
 
         if (response.ok) {
           const data = await response.json()
-          console.log(data)
-
           setUserChats(data);
 
         } else {
@@ -39,12 +39,29 @@ function App() {
   }, [user])
 
   useEffect(() => {
-    if (userChats.length && displayedChatId === null) setDisplayedChatId(userChats[0].id)
+    if (userChats.length > 0 && displayedChatId === null) setDisplayedChatId(userChats[0].id)
 
     const selectedChat = userChats.find(chat => chat.id === displayedChatId); // Filter by chat ID
     setDisplayedChat(selectedChat || null); // Avoid setting undefined
   
   }, [userChats, displayedChatId]);
+
+  useEffect(() => {
+    async function updateUser() {
+      if (!user || !user.id) return; // Check if user and user.id are available
+
+      try {
+        const response = await axios.get(`${backendURL}/users/${user.id}/profile`);
+        if (response.status === 200) {
+          const updatedUser = response.data;
+          setUser(updatedUser);
+        }
+      } catch (err) {
+          setError('An error occurred when updating the user.')
+      }
+    }
+    if (user) updateUser();
+  }, [])
 
   if (loading) return <h1>Loading... </h1>
 
@@ -56,7 +73,7 @@ function App() {
           <div className={styles['chat-title-container']}>
             <h2 className={styles['chat-title']}>Chats</h2>
             {error && <h3>{error}</h3>}
-            <button onClick={() => newChat()}>New Chat</button>
+            <button onClick={() => setNewChat(true)}>New Chat</button>
           </div>
           {userChats.length > 0 && userChats.map((chat) => (
               <div 
@@ -69,7 +86,8 @@ function App() {
               </div>  
           ))}
         </div>
-        {displayedChat && <Chat chat={displayedChat} user={user} />}
+        <ChatContainer user={user} displayedChat={displayedChat} setDisplayedChat={setDisplayedChat} newChat={newChat} setNewChat={setNewChat} userChats={userChats}/>
+        {/* displayedChat && <Chat chat={displayedChat} user={user} /> */}
       </div>
     </div>
   )

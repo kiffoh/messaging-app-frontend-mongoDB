@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from './groupMessage.module.css'
 import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL;
+import nameGroup from "../function/nameGroup";
 
 function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, handleContactSelection, contacts}) {
     const [error, setError] = useState(false);
@@ -108,12 +109,6 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
 
         setNewChat(false);
         setNextStage(false);
-    }
-
-    function nameGroup(members) {
-        const groupUsernames = []
-        members.map(member => groupUsernames.push(member.username));
-        return groupUsernames.slice(0, groupUsernames.length - 1).join(', ') + ' & ' + groupUsernames.slice(groupUsernames.length - 1);
     }
 
     return (

@@ -38,7 +38,7 @@ function App() {
   }, [user])
 
   useEffect(() => {
-    if (userChats.length > 0 && displayedChatId === null) setDisplayedChatId(userChats[0].id)
+    if (userChats.length > 0 && displayedChatId === null) setDisplayedChatId(userChats.filter(chat => chat.messages.length > 0)[0].id)
 
     const selectedChat = userChats.find(chat => chat.id === displayedChatId); // Filter by chat ID
     setDisplayedChat(selectedChat || null); // Avoid setting undefined
@@ -74,22 +74,24 @@ function App() {
             {error && <h3>{error}</h3>}
             <button onClick={() => setNewChat(true)}>New Chat</button>
           </div>
-          {userChats.length > 0 ? (
-            userChats
-            .filter(chat => chat.messages.length > 0) // Filter out chats with no messages
-            .map((chat) => (
-              <div 
-                className={styles['user-chat']} 
-                key={chat.id} 
-                onClick={() => setDisplayedChatId(chat.id)}
-              >
-                <p className={styles['chat-name']}>{chat.name}</p>
-                <p>{chat.messages[0].content}</p> {/* Optional chaining */}
-              </div>
-            ))
-          ) : (
-            <p>No chats available</p>
-          )}
+          <div className={styles['user-chats-container']}>
+            {userChats.length > 0 ? (
+              userChats
+              .filter(chat => chat.messages.length > 0) // Filter out chats with no messages
+              .map((chat) => (
+                <div 
+                  className={styles[displayedChatId === chat.id ? 'user-chat-highlighted' : 'user-chat']} 
+                  key={chat.id} 
+                  onClick={() => setDisplayedChatId(chat.id)}
+                >
+                  <p className={styles['chat-name']}>{chat.name}</p>
+                  <p>{chat.messages[0].content}</p> {/* Optional chaining */}
+                </div>
+              ))
+            ) : (
+              <p>No chats available</p>
+            )}
+          </div>
         </div>
         <ChatContainer
           user={user}

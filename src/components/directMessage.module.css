@@ -1,0 +1,8 @@
+.direct-message-form {
+    user-select: none;
+}
+
+.contact-photo {
+    border-radius: 50%;
+    width: 4em;
+}

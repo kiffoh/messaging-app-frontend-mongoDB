@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import styles from './chatContainer.module.css'
+import styles from './directMessage.module.css'
 import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL
 
-function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats}) {
+function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup}) {
     const [error, setError] = useState(null);
     const directMessageChats = userChats.filter(chat => chat.directMsg === true);
 
@@ -26,13 +26,13 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
             setDisplayedChatId(existingChat.id);
         } else {
             try {
-                const response = await axios.post(`${backendURL}/groups/create`, {
+                const response = await axios.post(`${backendURL}/groups/createDirectMessage`, {
                     members: [user, recipient]
                 });
 
                 if (response.status === 200 || response.status === 201) {
                     console.log('GOING THROUGH RESPONSE')
-                    const data = response.data.newGroup || response.data.existingDM;
+                    const data = response.data.newGroup || response.data.existingGroup;
                     
                     setDisplayedChat(data);
                     setDisplayedChatId(data.id);
@@ -48,9 +48,9 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
     }
 
     return (
-        <form>
+        <form className={styles['direct-message-form']}>
             {error && <h3 className={styles['error']}>{error}</h3>}
-            <button type='button'>New Group</button>
+            <button type='button' onClick={() => setNewGroup(true)}>New Group</button>
             <button type='button' onClick={() => setNewChat(false)}>X</button>
             <input 
                 type="text"
@@ -63,7 +63,7 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
             ) : (
             filteredContacts.map(contact => (
                 <div key={contact.id} onClick={() => handleFormSubmit(contact)}>
-                    <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} />
+                    <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} draggable='false'/>
                     <p className={styles['contact-name']}>{contact.username}</p>                  
                 </div>
             )))}                   

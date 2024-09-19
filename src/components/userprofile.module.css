@@ -45,3 +45,7 @@
 .user-photo-container:hover .edit-logo-photo {
     opacity: 1;
 }
+
+.user-photo {
+    width: 20em;
+}

@@ -21,11 +21,13 @@
 .chat-bar {
     padding: 0 1em;
     user-select: none;
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
 .user-chat, .user-chat-highlighted {
     padding: 2em 0;
-    border-top: 2px solid var(--default-colour-light);
+    /* border-top: 2px solid var(--default-colour-light); */
     border-bottom: 2px solid var(--default-colour-light);
 }
 
@@ -34,8 +36,9 @@
 }
 
 .user-chats-container {
-    border-top: 2px solid var(--default-colour-light);
-    border-bottom: 2px solid var(--default-colour-light);
+    border-top: 4px solid var(--default-colour-light);
+    border-bottom: 4px solid var(--default-colour-light);
+    max-height: 100%;
 }
 
 .chat-name {

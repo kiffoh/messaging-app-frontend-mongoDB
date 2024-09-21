@@ -76,3 +76,9 @@
     grid-template-rows: auto 1fr auto;
     height: 100%;
 }
+
+.message-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    background-color: whitesmoke;
+}

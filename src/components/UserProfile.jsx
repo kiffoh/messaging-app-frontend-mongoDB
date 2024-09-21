@@ -217,7 +217,9 @@ function UserProfile({group}) {
         }
     
         try {
-            const response = await axios.delete(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`)
+            const response = await axios.delete(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`, {
+                user
+            })
             if (response.status != 200) return setError('An error occurred when trying to delete the profile.');
         
             navigate("/")

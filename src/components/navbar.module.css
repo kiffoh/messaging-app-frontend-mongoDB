@@ -7,6 +7,7 @@
     height: 5em;
     border-radius: 50%;
     border: 2px solid transparent;
+    box-sizing: unset;
 }
 
 

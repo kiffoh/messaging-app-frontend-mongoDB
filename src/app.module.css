@@ -1,9 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
 .app-body {
     width: 100%;
     background-color: var(--default-colour-light-2);
     color: var(--default-colour);
     display: grid;
     grid-template-columns: auto 1fr;
+    height: calc(100% - 134px);
+    max-height: calc(100% - 120px);
 }
 
 @media (min-width: 800px) {
@@ -23,6 +29,7 @@
     user-select: none;
     display: grid;
     grid-template-rows: auto 1fr;
+    max-height: calc(100% - 120px);
 }
 
 .user-chat, .user-chat-highlighted {
@@ -38,7 +45,7 @@
 .user-chats-container {
     border-top: 4px solid var(--default-colour-light);
     border-bottom: 4px solid var(--default-colour-light);
-    max-height: 100%;
+    overflow-y: auto; /* Add scrollbar if content overflows */
 }
 
 .chat-name {
@@ -48,5 +55,9 @@
 .app-root {
     display: grid;
     grid-template-rows: auto 1fr;
-    height: 100%;
+    height: 100vh;
+}
+
+.displayed-chat-container {
+    max-height: calc(100% - 120px);
 }

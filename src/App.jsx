@@ -93,16 +93,18 @@ function App() {
             )}
           </div>
         </div>
-        <ChatContainer
-          user={user}
-          displayedChat={displayedChat}
-          setDisplayedChat={setDisplayedChat}
-          newChat={newChat}
-          setNewChat={setNewChat}
-          userChats={userChats}
-          setDisplayedChatId={setDisplayedChatId}
-          setUserChats={setUserChats}
-        />
+        <div className={styles['displayed-chat-container']}>
+          <ChatContainer
+            user={user}
+            displayedChat={displayedChat}
+            setDisplayedChat={setDisplayedChat}
+            newChat={newChat}
+            setNewChat={setNewChat}
+            userChats={userChats}
+            setDisplayedChatId={setDisplayedChatId}
+            setUserChats={setUserChats}
+          />
+        </div>
       </div>
     </div>
   )

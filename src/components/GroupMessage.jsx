@@ -126,6 +126,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                     <input
                         type="file"
                         onChange={(e) => setFile(e.target.files[0])}
+                        name='photo'
                     />
                     <label htmlFor="photo">
                         Add group icon (optional)

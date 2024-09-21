@@ -165,7 +165,7 @@ function UserProfile({group}) {
             }
 
             if (editProfilePic) {
-                if (profilePic.trim() === "") return setError("Profile picture cannot be empty.");
+                if (profilePic === "") return setError("Profile picture cannot be empty.");
                 if (chatData.photo !== profilePic) {
                     data.photo = profilePic;
                     setChatData(current => ({ ...current, photo: profilePic }));
@@ -180,13 +180,14 @@ function UserProfile({group}) {
                 }
             }
 
-
             
             if (Object.keys(data).length != 0) {
                 console.log(data)
-                const response = await axios.put(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`, 
-                    data
-                );
+                const response = await axios.put(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`, data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data' // Important for file uploads
+                    }
+                });
                 
                 if (response.status != 200) return setError('An error occurred when trying to update the profile.');
     
@@ -207,6 +208,7 @@ function UserProfile({group}) {
             setEditBio(false);
             setEditUsername(false);
         } catch (err) {
+            console.log(err)
             setError('An unknown error occurred when trying to update the profile.')
         }
     }
@@ -241,16 +243,32 @@ function UserProfile({group}) {
                     {chatData && 
                     <>
                         <div className={styles['user-photo-container']}>
-                            <img src={profilePic} alt='user-photo' className={styles['user-photo']} draggable='false'></img>
-                            {canEdit && 
-                                <img
-                                    src={editLogo}
-                                    alt='Edit logo'
-                                    className={styles['edit-logo-photo']}
-                                    onClick={() => setEditProfilePic(!editProfilePic)}
-                                    draggable='false'
-                                />}
+                            {editProfilePic ? (
+                            <>
+                                <input
+                                    type="file"
+                                    onChange={(e) => setProfilePic(e.target.files[0])}
+                                    name='photo'
+                                />
+                                <label htmlFor="photo">
+                                    Add group photo
+                                </label>
+                            </>
+                            ) : (
+                            <>
+                                <img src={profilePic} alt='user-photo' className={styles['user-photo']} draggable='false'></img>
+                                {canEdit && 
+                                    <img
+                                        src={editLogo}
+                                        alt='Edit logo'
+                                        className={styles['edit-logo-photo']}
+                                        onClick={() => setEditProfilePic(!editProfilePic)}
+                                        draggable='false'
+                                    />}
+                            </>
+                            )}
                         </div>
+
                         <div className={styles['username-container']}>
                             {editUsername ? 
                                 <>
@@ -297,6 +315,7 @@ function UserProfile({group}) {
                         {group && chatData.name !== combinedGroupName && ( // Displays group members if they group name is not the default (a combination of the member's names)
                             <h2 className={styles['combined-group-name']}>{combinedGroupName}</h2>
                         )}
+
                         <div className={styles['bio-container']}>
                             {editBio ? (
                             <textarea 

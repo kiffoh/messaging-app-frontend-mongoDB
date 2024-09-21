@@ -85,7 +85,7 @@ function App() {
                   onClick={() => setDisplayedChatId(chat.id)}
                 >
                   <p className={styles['chat-name']}>{chat.name}</p>
-                  <p>{chat.messages[0].content}</p> {/* Optional chaining */}
+                  <p className={styles['last-chat-message']}>{chat.messages[0].content}</p> {/* Optional chaining */}
                 </div>
               ))
             ) : (
@@ -93,18 +93,16 @@ function App() {
             )}
           </div>
         </div>
-        <div className={styles['displayed-chat-container']}>
-          <ChatContainer
-            user={user}
-            displayedChat={displayedChat}
-            setDisplayedChat={setDisplayedChat}
-            newChat={newChat}
-            setNewChat={setNewChat}
-            userChats={userChats}
-            setDisplayedChatId={setDisplayedChatId}
-            setUserChats={setUserChats}
-          />
-        </div>
+        <ChatContainer
+          user={user}
+          displayedChat={displayedChat}
+          setDisplayedChat={setDisplayedChat}
+          newChat={newChat}
+          setNewChat={setNewChat}
+          userChats={userChats}
+          setDisplayedChatId={setDisplayedChatId}
+          setUserChats={setUserChats}
+        />
       </div>
     </div>
   )

@@ -8,8 +8,6 @@
     color: var(--default-colour);
     display: grid;
     grid-template-columns: auto 1fr;
-    height: calc(100% - 134px);
-    max-height: calc(100% - 120px);
 }
 
 @media (min-width: 800px) {
@@ -29,33 +27,42 @@
     user-select: none;
     display: grid;
     grid-template-rows: auto 1fr;
-    max-height: calc(100% - 120px);
 }
 
 .user-chat, .user-chat-highlighted {
     padding: 2em 0;
+    /*
     border-top: 2px solid var(--default-colour-light);
     border-bottom: 2px solid var(--default-colour-light);
     gap: 2px;
+    */
 }
 
+.user-chat:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
 
 .user-chat-highlighted {
     background-color: var(--default-colour-light);;
 }
 
+.user-chat-highlighted:hover {
+    background-color: rgba(248, 251, 234, 0.6)
+}
+
 .chat-name {
     font-weight: bold;
+    margin: 0;
+}
+
+.last-chat-message {
+    margin: 0
 }
 
 .app-root {
     display: grid;
     grid-template-rows: auto 1fr;
     height: 100vh;
-}
-
-.displayed-chat-container {
-    max-height: calc(100% - 120px);
 }
 
 .user-chats-container {

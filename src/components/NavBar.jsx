@@ -25,7 +25,7 @@ function NavBar() {
                 <a href='/'>Messages</a>
                 <div className={styles['profile-container']}>
                     <div className={styles[(profileLinks? 'image-container-highlighted' : 'image-container')]}>
-                        {userPhoto && <img src={userPhoto} alt='User Photo' className={styles[(profileLinks? 'profile-picture-highlighted': 'profile-picture')]} onClick={() => setProfileLinks(!profileLinks)} draggable='false'/>}
+                        {userPhoto && <img src={user.photo} alt='User Photo' className={styles[(profileLinks? 'profile-picture-highlighted': 'profile-picture')]} onClick={() => setProfileLinks(!profileLinks)} draggable='false'/>}
                     </div>
                     {profileLinks && 
                         <>

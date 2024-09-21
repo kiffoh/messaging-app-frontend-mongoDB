@@ -94,9 +94,9 @@ function DisplayedChat({displayedChat, user}) {
                 ))}
             </div>
             <div className={styles['messaging-container']}>
-                <form onSubmit={sendMessage}>
-                    <input 
-                        type='text'
+                <form onSubmit={sendMessage} className={styles['message-container']}>
+                    <button type='button'>File</button>
+                    <textarea
                         className={styles['message-box']}
                         name='message'
                         value={message}

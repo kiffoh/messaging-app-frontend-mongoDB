@@ -5,6 +5,7 @@ import styles from './app.module.css'
 import useAuth from './Authentification/useAuth'
 import axios from 'axios'
 import ChatContainer from './components/ChatContainer'
+import { RiChatNewLine } from "react-icons/ri";
 const backendURL = import.meta.env.VITE_SERVER_URL;
 const defaultPic = import.meta.env.DEFAULT_PICTURE;
 
@@ -81,7 +82,9 @@ function App() {
           <div className={styles['chat-title-container']}>
             <h2 className={styles['chat-title']}>Chats</h2>
             {error && <h3>{error}</h3>}
-            <button onClick={() => setNewChat(true)}>New Chat</button>
+            <button onClick={() => setNewChat(true)} className={styles['new-chat-btn']}>
+              <RiChatNewLine size={24}/>
+            </button>
           </div>
           <div className={styles['user-chats-container']}>
             {userChats.length > 0 ? (

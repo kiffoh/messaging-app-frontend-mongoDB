@@ -7,27 +7,32 @@
 }
 
 .user-chat, .responder-chat {
-    border-radius: 10%;
-    padding: 0.25em 1em
+    padding: 0.25em 1em;
+    display: flex;
+    align-items: center;
 }
 
 .user-chat-container {
- display: flex;
- justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
 }
 
 .user-chat {
-  background-color: var(--default-colour-soft-green);
+    border-radius: 10% 10% 0 10% / 30% 30% 0 30%;
+    background-color: var(--default-colour-soft-green);
 }
 
 .responder-chat-container {
     display: flex;
     justify-content: flex-start;
+    gap: 1em;
 }
 
 .responder-chat {
     background-color: var(--default-colour-soft-purple);
     color: whitesmoke;
+    border-radius: 10% 10% 10% 0 / 30% 30% 30% 0;
 }
 
 .chat-photo {
@@ -81,4 +86,19 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     background-color: whitesmoke;
+}
+
+.message-box {
+    resize: none;
+    border: none
+}
+
+.message-box::-webkit-scrollbar {
+    background-color: transparent; /* Hidden by default */
+}
+
+.user-photo, .recipient-photo {
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
 }

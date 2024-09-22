@@ -8,8 +8,9 @@
 }
 
 .userprofile-flexbox {
-    width: fit-content;
     user-select: none;
+    display: grid;
+    justify-items: center;
 }
 
 .username-container, .bio-container, .user-photo-container {
@@ -48,4 +49,56 @@
 
 .user-photo {
     width: 20em;
+}
+
+.edit-photo-container { 
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.photo-upload-body.profile {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+
+}
+
+.photo-icon.profile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.profile-container {
+    display: grid;
+}
+
+.btns-container {
+    width: 100%;
+    display: grid;
+    gap: 3.5em;
+}
+
+.edit-btns-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-edit {
+    background-color: var(--default-colour-light-2);
+}
+
+.save-edit {
+    background-color: var(--default-colour-soft-green);
+}
+
+.delete-profile {
+    background-color: rgb(218, 65, 65);
 }

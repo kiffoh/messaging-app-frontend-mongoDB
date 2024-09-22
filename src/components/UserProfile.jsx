@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NavBar from './navbar';
 import styles from './userprofile.module.css'
 import useAuth from '../Authentification/useAuth';
@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import nameGroup from '../function/nameGroup';
 import { useNavigate } from 'react-router-dom';
+import PhotoUpload from './PhotoUpload';
+import { string } from 'prop-types';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 const editLogo = import.meta.env.VITE_EDIT_LOGO;
 
@@ -24,6 +26,7 @@ function UserProfile({group}) {
 
     const [canEdit, setCanEdit] = useState(false);
     const [profilePic, setProfilePic] = useState('');
+    let currentProfilePic = useRef('');
     const [username, setUsername] = useState('');
     const [name, setName] = useState(''); // For UI logic, 
     const [bio, setBio] = useState('');
@@ -96,6 +99,7 @@ function UserProfile({group}) {
                     setChatData(response.data)
                     
                     setProfilePic(response.data.photo);
+                    currentProfilePic.current = response.data.photo;
                     setUsername(response.data.username);
                     setName(response.data.name || response.data.username);
                     setBio(response.data.bio);
@@ -194,6 +198,7 @@ function UserProfile({group}) {
                 setChatData(response.data)
                 
                 setProfilePic(response.data.photo);
+                currentProfilePic.current = response.data.photo;
                 setUsername(response.data.username);
                 setName(response.data.name || response.data.username);
                 setBio(response.data.bio);
@@ -241,19 +246,13 @@ function UserProfile({group}) {
                     <h2>{group ? 'Group' : 'User'} Profile</h2>
                     {error && <h3>{error}</h3>}
                     {chatData && 
-                    <>
+                    <div className={styles['profile-container']}>
                         <div className={styles['user-photo-container']}>
                             {editProfilePic ? (
-                            <>
-                                <input
-                                    type="file"
-                                    onChange={(e) => setProfilePic(e.target.files[0])}
-                                    name='photo'
-                                />
-                                <label htmlFor="photo">
-                                    Add group photo
-                                </label>
-                            </>
+                            <div className={styles['edit-photo-container']}>
+                                <img src={currentProfilePic.current} alt='user-photo' className={styles['user-photo']} draggable='false'></img>
+                                <PhotoUpload file={profilePic} setFile={setProfilePic} className={styles.profile}/>
+                            </div>
                             ) : (
                             <>
                                 <img src={profilePic} alt='user-photo' className={styles['user-photo']} draggable='false'></img>
@@ -338,15 +337,17 @@ function UserProfile({group}) {
                             </>)}
                         </div>
                         <h5>{group ? 'Group' : 'User'} Created: {chatData.createdAtTime}, {chatData.createdAtDate}</h5>
-                    </>}
+                    </div>}
                     {(editProfilePic || editUsername || editBio) && (
-                        <>
-                            <div className={styles['edit-btn-container']}>
+                        <div className={styles['btns-container']}>
+                            <div className={styles['edit-btns-container']}>
                                 <button type='button' className={styles['cancel-edit']} onClick={cancelEdit}>Cancel</button>
                                 <button type='button' className={styles['save-edit']} onClick={saveEdit}>Save</button>
                             </div>
-                            <button type='button' className={styles['delete-profile']} onClick={deleteProfile}>Delete {group? 'group' : 'profile'}</button>
-                        </>
+                            <div className={styles['delete-btn-container']}>
+                                <button type='button' className={styles['delete-profile']} onClick={deleteProfile}>Delete {group? 'group' : 'profile'}</button>
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>

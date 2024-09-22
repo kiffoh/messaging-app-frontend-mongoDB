@@ -9,6 +9,8 @@
   --default-colour-soft-green: rgba(142,224,210,255);
   --default-colour-soft-purple: rgba(86,102,155,255);
   --default-colour-light-2: rgba(198,208,199,255);
+  --default-colour-pink: rgba(220,147,231,255);
+  --default-colour-blue: rgba(88,144,213,255);
 
   background-color: var(--default-colour-light-2);
 }

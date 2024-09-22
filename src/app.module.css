@@ -110,3 +110,14 @@
     background-color: transparent;
     border-radius: 8px;
 }
+
+.last-chat-message, .chat-name {
+    white-space: nowrap;  /* Prevents the text from wrapping to the next line */
+    overflow: hidden;     /* Hides the overflowed content */
+    text-overflow: ellipsis;  /* Adds '...' at the point of overflow */
+    max-width: 100%;      /* Ensures the element respects the container's width */
+}
+
+.last-chat-message {
+    padding: 0 0.5em;
+}

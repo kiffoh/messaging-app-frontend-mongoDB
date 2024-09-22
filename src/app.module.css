@@ -20,6 +20,8 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.5em;
+    padding-right: 8px;
+    padding-left: 8px;
 }
 
 .chat-bar {
@@ -120,4 +122,9 @@
 
 .last-chat-message {
     padding: 0 0.5em;
+}
+
+.new-chat-btn {
+    background-color: var(--default-colour-pink);
+    color: whitesmoke;
 }

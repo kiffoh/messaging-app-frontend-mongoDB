@@ -6,6 +6,7 @@ import useAuth from './Authentification/useAuth'
 import axios from 'axios'
 import ChatContainer from './components/ChatContainer'
 const backendURL = import.meta.env.VITE_SERVER_URL;
+const defaultPic = import.meta.env.DEFAULT_PICTURE;
 
 function App() {
   const [userChats, setUserChats] = useState([]);
@@ -16,6 +17,7 @@ function App() {
   const [displayedChatId, setDisplayedChatId] = useState(null);
   const [displayedChat, setDisplayedChat] = useState(null);
   const [newChat, setNewChat] = useState(false); // State to toggle between chat and form
+  const [authorIdToPhotoURL, setAuthorIdToPhotoURL] = useState({})
 
   useEffect(() => {
     async function fetchUserMessages() {
@@ -41,8 +43,15 @@ function App() {
     if (userChats.length > 0 && displayedChatId === null) setDisplayedChatId(userChats.filter(chat => chat.messages.length > 0)[0].id)
 
     const selectedChat = userChats.find(chat => chat.id === displayedChatId); // Filter by chat ID
-    setDisplayedChat(selectedChat || null); // Avoid setting undefined
-  
+    setDisplayedChat(selectedChat); // Avoid setting undefined
+
+    const idToPhoto = {}
+    if (selectedChat) {
+      selectedChat.members.map(member => idToPhoto[member.id] = member.photo != null ? member.photo : defaultPic)
+      setAuthorIdToPhotoURL(idToPhoto);
+    }
+
+
   }, [userChats, displayedChatId]);
 
   useEffect(() => {
@@ -85,7 +94,7 @@ function App() {
                   onClick={() => setDisplayedChatId(chat.id)}
                 >
                   <p className={styles['chat-name']}>{chat.name}</p>
-                  <p className={styles['last-chat-message']}>{chat.messages[0].content}</p> {/* Optional chaining */}
+                  <p className={styles['last-chat-message']}>{chat.messages[0].content}</p>
                 </div>
               ))
             ) : (
@@ -93,16 +102,19 @@ function App() {
             )}
           </div>
         </div>
-        <ChatContainer
-          user={user}
-          displayedChat={displayedChat}
-          setDisplayedChat={setDisplayedChat}
-          newChat={newChat}
-          setNewChat={setNewChat}
-          userChats={userChats}
-          setDisplayedChatId={setDisplayedChatId}
-          setUserChats={setUserChats}
-        />
+        <div className={styles['displayed-chat-container']}>
+          <ChatContainer
+            user={user}
+            displayedChat={displayedChat}
+            setDisplayedChat={setDisplayedChat}
+            newChat={newChat}
+            setNewChat={setNewChat}
+            userChats={userChats}
+            setDisplayedChatId={setDisplayedChatId}
+            setUserChats={setUserChats}
+            authorIdToPhotoURL={authorIdToPhotoURL}
+          />
+        </div>
       </div>
     </div>
   )

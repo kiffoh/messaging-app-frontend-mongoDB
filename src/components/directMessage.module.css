@@ -1,8 +1,88 @@
 .direct-message-form {
     user-select: none;
+    display: grid;
+    align-items: center;
+    position: relative;
+    gap: 2em;
+    background-color: var(--default-colour-light);
+    border-radius: 2%;
+    padding: 1em;
+}
+
+.add-contact-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+/*
+.cancel-btn {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    transform: translateX(-50%);
+}
+
+.new-group-btn {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translateX(50%);
+}
+
+.search-bar {
+    height: 42.19px;
+}
+*/
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
 }
 
 .contact-photo {
     border-radius: 50%;
-    width: 4em;
+    width: 3em;
+}
+
+.contacts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.contact-div {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    /* transform: translate(13%); */
+    padding-left: 1em;
+    border-radius: 10% 10% 10% 10% / 30% 30% 30% 30%;
+}
+
+.contact-div:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.contact-name {
+    min-width: 6em;
+    display: flex;
+    font-size: large;
+}
+
+
+.direct-message-body {
+    display: flex;
+    justify-content: center;
+}
+
+.add-contact-btn {
+    background-color: var(--default-colour-soft-purple);
+    color: whitesmoke;
+}
+
+.cancel-btn {
+    background-color: var(--default-colour-light-2);
+    font-weight: bold;
 }

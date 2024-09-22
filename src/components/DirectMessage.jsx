@@ -3,7 +3,7 @@ import styles from './directMessage.module.css'
 import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL
 
-function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup}) {
+function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, newContact, setNewContact}) {
     const [error, setError] = useState(null);
     const directMessageChats = userChats.filter(chat => chat.directMsg === true);
 
@@ -48,26 +48,36 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
     }
 
     return (
-        <form className={styles['direct-message-form']}>
-            {error && <h3 className={styles['error']}>{error}</h3>}
-            <button type='button' onClick={() => setNewGroup(true)}>New Group</button>
-            <button type='button' onClick={() => setNewChat(false)}>X</button>
-            <input 
-                type="text"
-                placeholder="Search contacts"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
-            {filteredContacts.length === 0 ? (
-                <p className={styles['no-contacts-found']}>No contacts found</p>
-            ) : (
-            filteredContacts.map(contact => (
-                <div key={contact.id} onClick={() => handleFormSubmit(contact)}>
-                    <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} draggable='false'/>
-                    <p className={styles['contact-name']}>{contact.username}</p>                  
+        <div className={styles['direct-message-body']}>
+            <form className={styles['direct-message-form']}>
+                {error && <h3 className={styles['error']}>{error}</h3>}
+                <div className={styles['search-container']}>
+                    <button type='button' onClick={() => setNewGroup(true)} className={styles['new-group-btn']}>New Group</button>
+                    <input 
+                        type="text"
+                        placeholder="Search contacts"
+                        className={styles['search-bar']}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <button type='button' onClick={() => setNewChat(false)} className={styles['cancel-btn']}>X</button>
                 </div>
-            )))}                   
-        </form>
+                <div className={styles['contacts-container']}>
+                    {filteredContacts.length === 0 ? (
+                        <p className={styles['no-contacts-found']}>No contacts found</p>
+                    ) : (
+                    filteredContacts.map(contact => (
+                        <div key={contact.id} onClick={() => handleFormSubmit(contact)} className={styles['contact-div']}>
+                            <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} draggable='false'/>
+                            <p className={styles['contact-name']}>{contact.username}</p>                  
+                        </div>
+                    )))}                   
+                </div>
+                <div className={styles['add-contact-btn-container']}>
+                    <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>Add contact</button>
+                </div>
+            </form>
+        </div>
     )
 }
 

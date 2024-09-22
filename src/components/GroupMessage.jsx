@@ -4,7 +4,7 @@ import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL;
 import nameGroup from "../function/nameGroup";
 
-function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, handleContactSelection, contacts}) {
+function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, handleContactSelection, contacts, newContact, setNewContact}) {
     const [error, setError] = useState(false);
     const [nextStage, setNextStage] = useState(false);
     const [name, setName] = useState('');
@@ -112,65 +112,79 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
     }
 
     return (
-        <form onSubmit={handleFormSubmit} className={styles['group-message-form']}>
-            {nextStage ? (
-                <>
-                    <div className={styles['selected-contacts-container']}>
-                        {selectedContacts.map(contact => (
-                            <div key={contact.id} className={styles['contact-div']}>
-                                <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} draggable='false'/>
-                                <p className={styles['contact-name']}>{contact.username}</p>                  
-                            </div>
-                        ))}
-                    </div>
-                    <input
-                        type="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        name='photo'
-                    />
-                    <label htmlFor="photo">
-                        Add group icon (optional)
-                    </label>
-                    <label htmlFor="name">
-                        Provide a group name
-                    </label>
-                    <input 
-                        type="text"
-                        name="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Group name (optional)"
-                    />
-                    <button type="button" onClick={() => setNextStage(false)}>Back</button>
-                    <button type="submit">Create</button>
-                </>
-            ) : (
-                <>
-                    <button type='button' onClick={() => setNewGroup(false)}>Direct Message</button>
-                    <input 
-                        type="text"
-                        placeholder="Search contacts"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    <div className={styles['contacts-container']}>
-                        {filteredContacts.length === 0 ? (
-                            <p className={styles['no-contacts-found']}>No contacts found</p>
-                        ) : (
-                        filteredContacts.map(contact => (
-                            <div key={contact.id} onClick={() => handleContactSelection(contact.id)} className={styles['contact-div']}>
-                                <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} />
-                                <p className={styles['contact-name']}>{contact.username}</p>
-                                <div className={styles[contact.selected? "checkbox-highlighted" : "checkbox"]}>○</div>                  
-                            </div>
-                        )))}
-                    </div>
-                    {error && <h3 className={styles['error']}>{error}</h3>}
-                    <button type='button' onClick={() => setNewChat(false)}>Cancel</button>
-                    <button type='button' onClick={handleNextSubmit}>Next</button>     
-                </>
-            )}
-        </form>
+        <div className={styles['group-message-body']}>
+            <form onSubmit={handleFormSubmit} className={styles['group-message-form']}>
+                {nextStage ? (
+                    <>
+                        <div className={styles['selected-contacts-container']}>
+                            {selectedContacts.map(contact => (
+                                <div key={contact.id} className={styles['contact-div']}>
+                                    <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} draggable='false'/>
+                                    <p className={styles['contact-name']}>{contact.username}</p>                  
+                                </div>
+                            ))}
+                        </div>
+                        <div className={styles['photo-container']}>
+                            <input
+                                type="file"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                name='photo'
+                            />
+                            <label htmlFor="photo">
+                                Add group icon (optional)
+                            </label>
+                        </div>
+                        <div className={styles['group-name-container']}>
+                            <label htmlFor="name" className={styles['group-name']}>
+                                Provide a group name
+                            </label>
+                            <input 
+                                type="text"
+                                name="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Group name (optional)"
+                                className={styles['group-name-input']}
+                            />
+                        </div>
+                        <div className={styles['btns-container']}>
+                            <button type="button" onClick={() => setNextStage(false)} className={styles['back-btn']}>Back</button>
+                            <button type="submit" className={styles['create-btn']}>Create</button>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className={styles['search-container']}>
+                            <button type='button' onClick={() => setNewGroup(false)}>Direct Message</button>
+                            <input 
+                                type="text"
+                                placeholder="Search contacts"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                            <button type='button' onClick={() => setNewChat(false)} className={styles['cancel-btn']}>X</button>
+                        </div>
+                        <div className={styles['contacts-container']}>
+                            {filteredContacts.length === 0 ? (
+                                <p className={styles['no-contacts-found']}>No contacts found</p>
+                            ) : (
+                            filteredContacts.map(contact => (
+                                <div key={contact.id} onClick={() => handleContactSelection(contact.id)} className={styles['contact-div']}>
+                                    <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} />
+                                    <p className={styles['contact-name']}>{contact.username}</p>
+                                    <div className={styles[contact.selected? "checkbox-highlighted" : "checkbox"]}>○</div>                  
+                                </div>
+                            )))}
+                        </div>
+                        {error && <h3 className={styles['error']}>{error}</h3>}
+                        <div className={styles['add-contact-btn-container']}>
+                            <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>Add contact</button>
+                            <button type='button' onClick={handleNextSubmit} className={styles['next-btn']}>Next</button>  
+                        </div>
+                    </>
+                )}
+            </form>
+        </div>
     )
 }
 

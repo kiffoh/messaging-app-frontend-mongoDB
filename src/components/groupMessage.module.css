@@ -8,7 +8,6 @@
     flex-direction: column;
     align-items: center;
     gap: 1em;
-    margin: 2em 0;
 }
 
 .selected-contacts-container {
@@ -20,11 +19,18 @@
     display: flex;
     align-items: center;
     gap: 1em;
+    padding: 0 1em;
+    border-radius: 10% 10% 10% 10% / 30% 30% 30% 30%;
+}
+
+.contact-div:hover {
+    background-color: rgba(0,0,0,0.1);
 }
 
 .contact-name {
-    min-width: 10em;
+    min-width: 8em;
     display: flex;
+    font-size: large;
 }
 
 .checkbox-highlighted {
@@ -34,4 +40,62 @@
 
 .group-message-form {
     user-select: none;
+    display: grid;
+    align-items: center;
+    position: relative;
+    gap: 2em;
+    background-color: var(--default-colour-light);
+    border-radius: 2%;
+    padding: 1em;
+}
+
+.group-message-body {
+    display: flex;
+    justify-content: center;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+}
+
+.add-contact-btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-contact-btn {
+    background-color: var(--default-colour-soft-purple);
+    color: whitesmoke;
+}
+
+.next-btn, .create-btn {
+    background-color: var(--default-colour-soft-green);
+}
+
+.cancel-btn, .back-btn {
+    background-color: var(--default-colour-light-2);
+}
+
+.cancel-btn {
+    font-weight: bold;
+}
+
+.btns-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.group-name-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.group-name-input {
+    font-size: 1em;
+}
+
+.group-name {
+    font-size: 1.2em;
 }

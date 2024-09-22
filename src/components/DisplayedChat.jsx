@@ -5,7 +5,7 @@ import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL; 
 
 
-function DisplayedChat({displayedChat, user}) {
+function DisplayedChat({displayedChat, user, authorIdToPhotoURL}) {
     const [profileInformation, setProfileInformation] = useState('select for contact info');
     const [fadeOut, setFadeOut] = useState(false); // Added state for fading
 
@@ -60,7 +60,7 @@ function DisplayedChat({displayedChat, user}) {
             setFadeOut(true); // Trigger fade-out effect
             setTimeout(() => setProfileInformation(null), 1000)
         }, 3000); // Time before fading starts
-        
+
         return () => clearTimeout(timer); // Clean up timer on unmount
     }, [displayedChat])
 
@@ -81,15 +81,15 @@ function DisplayedChat({displayedChat, user}) {
             </div>
             <div className={styles['chat-body']}>
                 {displayedChat.messages.map(message => (
-                    <div 
-                        key={message.id}
-                        className={styles[message.authorId === user.id ? 'user-chat-container' : 'responder-chat-container']}
-                    >
-                        <div
-                            className={styles[message.authorId === user.id ? 'user-chat' : 'responder-chat']}
-                        >
-                            {message.content}
-                        </div>
+                    message.authorId === user.id ? 
+                    <div key={message.id} className={styles['user-chat-container']}>
+                        <div className={styles['user-chat']}>{message.content}</div>
+                        <img src={authorIdToPhotoURL[message.authorId]} alt='user-photo' className={styles['user-photo']}/>
+                    </div>
+                    :
+                    <div key={message.id} className={styles['responder-chat-container']}>
+                        <img src={authorIdToPhotoURL[message.authorId]} alt='recipient-photo' className={styles['recipient-photo']}/>
+                        <div className={styles['responder-chat']}>{message.content}</div>
                     </div>
                 ))}
             </div>

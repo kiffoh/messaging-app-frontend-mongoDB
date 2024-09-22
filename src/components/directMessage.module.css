@@ -65,6 +65,7 @@
     background-color: var(--default-colour-light-2);
     font-weight: bold;
     height: 100%;
+    width: 64.38px;
 }
 
 .new-group-btn {

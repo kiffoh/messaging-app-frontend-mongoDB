@@ -1,6 +1,7 @@
 .contact-photo, .selected-contact-photo {
     border-radius: 50%;
     width: 3em;
+    height: 3em;
 }
 
 .contacts-container, .selected-contacts-container {
@@ -11,7 +12,11 @@
 }
 
 .selected-contacts-container {
-    
+    flex-wrap: wrap; 
+    max-width: 600px; 
+    width: 100%; 
+    margin: 0 auto;
+
 }
 
 .selected-contacts-container {
@@ -29,6 +34,8 @@
 
 .selected-contact-div {
     padding: 0;
+    flex: 0 1 20%; /* Allow items to grow, but limit to a percentage of the width */
+
 }
 
 .contact-div:hover {

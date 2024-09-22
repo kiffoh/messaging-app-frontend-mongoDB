@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from './directMessage.module.css'
 import axios from "axios";
-const backendURL = import.meta.env.VITE_SERVER_URL
+const backendURL = import.meta.env.VITE_SERVER_URL;
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { GrGroup } from "react-icons/gr";
 
 function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, newContact, setNewContact}) {
     const [error, setError] = useState(null);
@@ -52,7 +54,9 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
             <form className={styles['direct-message-form']}>
                 {error && <h3 className={styles['error']}>{error}</h3>}
                 <div className={styles['search-container']}>
-                    <button type='button' onClick={() => setNewGroup(true)} className={styles['new-group-btn']}>New Group</button>
+                    <button type='button' onClick={() => setNewGroup(true)} className={styles['new-group-btn']}>
+                        <GrGroup size={24}/>
+                    </button>
                     <input 
                         type="text"
                         placeholder="Search contacts"
@@ -60,7 +64,9 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    <button type='button' onClick={() => setNewChat(false)} className={styles['cancel-btn']}>X</button>
+                    <div className={styles['cancel-btn-container']}>
+                        <button type='button' onClick={() => setNewChat(false)} className={styles['cancel-btn']}>X</button>
+                    </div>
                 </div>
                 <div className={styles['contacts-container']}>
                     {filteredContacts.length === 0 ? (
@@ -74,7 +80,9 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
                     )))}                   
                 </div>
                 <div className={styles['add-contact-btn-container']}>
-                    <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>Add contact</button>
+                    <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>
+                        <AiOutlineUserAdd size={24} />
+                    </button>
                 </div>
             </form>
         </div>

@@ -5,10 +5,11 @@ import DirectMessage from './DirectMessage';
 import DisplayedChat from './DisplayedChat';
 import GroupMessage from './GroupMessage';
 
-function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats, setDisplayedChatId, setUserChats }) {
+function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats, setDisplayedChatId, setUserChats, authorIdToPhotoURL }) {
     const [search, setSearch] = useState('')
     const [contacts, setContacts] = useState([]) // Need id's names and photos
     const [newGroup, setNewGroup] = useState(false);
+    const [newContact, setNewContact] = useState(false);
 
     const [filteredContacts, setFilteredContacts] = useState([]) // Need id's names and photos
 
@@ -66,6 +67,8 @@ function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewC
                         setNewGroup={setNewGroup}
                         handleContactSelection={handleContactSelection}
                         contacts={contacts}
+                        newContact={newContact}
+                        setNewContact={setNewContact}
                     />
                 ) : (
                     <DirectMessage 
@@ -79,10 +82,12 @@ function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewC
                         setDisplayedChatId={setDisplayedChatId}
                         setUserChats={setUserChats}
                         setNewGroup={setNewGroup}
+                        newContact={newContact}
+                        setNewContact={setNewContact}
                     />
                 )
             ) : (
-                displayedChat && <DisplayedChat displayedChat={displayedChat} user={user} />
+                displayedChat && <DisplayedChat displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL}/>
             )}
         </>
     );

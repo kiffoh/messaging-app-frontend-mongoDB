@@ -42,8 +42,8 @@ function UserProfile({group}) {
                 const response = await axios.get(`${backendURL}/users/usernames`);
         
                 if (response.status != 200) return setError('An error occurred when trying to fetch all usernames.');
-        
-                setAllUsernames(response.data.filter(user => user.id = userId)); // Does not include current username for UI reasons            
+                
+                setAllUsernames(response.data.filter(user => user.id !== parseInt(userId))); // Does not include current username for UI reasons        
             } catch (err) {
                 return setError('An unknown error occurred when trying to fetch all usernames.')
             } finally {

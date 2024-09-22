@@ -121,9 +121,9 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                     <>
                         <div className={styles['selected-contacts-container']}>
                             {selectedContacts.map(contact => (
-                                <div key={contact.id} className={styles['contact-div']}>
-                                    <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} draggable='false'/>
-                                    <p className={styles['contact-name']}>{contact.username}</p>                  
+                                <div key={contact.id} className={styles['selected-contact-div']}>
+                                    <img src={contact.photo} alt='contact photo' className={styles['selected-contact-photo']} draggable='false'/>
+                                    <p className={styles['selected-contact-name']}>{contact.username}</p>                  
                                 </div>
                             ))}
                         </div>
@@ -175,7 +175,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                 <div key={contact.id} onClick={() => handleContactSelection(contact.id)} className={styles['contact-div']}>
                                     <img src={contact.photo} alt='contact photo' className={styles['contact-photo']} />
                                     <p className={styles['contact-name']}>{contact.username}</p>
-                                    <div className={styles[contact.selected? "checkbox-highlighted" : "checkbox"]}>○</div>                  
+                                    <div className={styles[contact.selected ? "checkbox-highlighted" : "checkbox"]}></div>                 
                                 </div>
                             )))}
                         </div>

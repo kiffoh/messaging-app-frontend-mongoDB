@@ -3,6 +3,9 @@ import styles from './groupMessage.module.css'
 import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL;
 import nameGroup from "../function/nameGroup";
+import PhotoUpload from "./PhotoUpload";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { GrUser } from "react-icons/gr";
 
 function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, handleContactSelection, contacts, newContact, setNewContact}) {
     const [error, setError] = useState(false);
@@ -125,14 +128,10 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                             ))}
                         </div>
                         <div className={styles['photo-container']}>
-                            <input
-                                type="file"
-                                onChange={(e) => setFile(e.target.files[0])}
-                                name='photo'
-                            />
                             <label htmlFor="photo">
                                 Add group icon (optional)
                             </label>
+                            <PhotoUpload file={file} setFile={setFile} className={styles['group-message']}/>
                         </div>
                         <div className={styles['group-name-container']}>
                             <label htmlFor="name" className={styles['group-name']}>
@@ -155,14 +154,18 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                 ) : (
                     <>
                         <div className={styles['search-container']}>
-                            <button type='button' onClick={() => setNewGroup(false)}>Direct Message</button>
+                            <button type='button' onClick={() => setNewGroup(false)} className={styles['direct-message-btn']}>
+                                <GrUser size={24}/>
+                            </button>
                             <input 
                                 type="text"
                                 placeholder="Search contacts"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
-                            <button type='button' onClick={() => setNewChat(false)} className={styles['cancel-btn']}>X</button>
+                            <div className={styles['cancel-btn-container']}>
+                                <button type='button' onClick={() => setNewChat(false)} className={styles['cancel-btn']}>X</button>
+                            </div>
                         </div>
                         <div className={styles['contacts-container']}>
                             {filteredContacts.length === 0 ? (
@@ -178,8 +181,12 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                         </div>
                         {error && <h3 className={styles['error']}>{error}</h3>}
                         <div className={styles['add-contact-btn-container']}>
-                            <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>Add contact</button>
-                            <button type='button' onClick={handleNextSubmit} className={styles['next-btn']}>Next</button>  
+                            <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>
+                                <AiOutlineUserAdd size={24} />
+                            </button>
+                            <div className={styles['next-btn-container']}>
+                                <button type='button' onClick={handleNextSubmit} className={styles['next-btn']}>Next</button>  
+                            </div>
                         </div>
                     </>
                 )}

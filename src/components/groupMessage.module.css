@@ -66,12 +66,16 @@
 }
 
 .add-contact-btn {
+    background-color: var(--default-colour-soft-green);
+}
+
+.direct-message-btn {
     background-color: var(--default-colour-soft-purple);
     color: whitesmoke;
 }
 
 .next-btn, .create-btn {
-    background-color: var(--default-colour-soft-green);
+    background-color: var(--default-colour-green);
 }
 
 .cancel-btn, .back-btn {
@@ -90,6 +94,7 @@
 .group-name-container {
     display: flex;
     flex-direction: column;
+    gap: 1em;
 }
 
 .group-name-input {
@@ -98,4 +103,15 @@
 
 .group-name {
     font-size: 1.2em;
+}
+
+.photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.cancel-btn, .next-btn {
+    height: 100%;
 }

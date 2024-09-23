@@ -31,7 +31,7 @@ const PhotoUpload = ({file, setFile, className}) => {
 
             {/* Display the selected file (optional) */}
             {file ? 
-                file.name && <p style={{margin:0}}>Selected file: {file.name}</p>
+                file.name && <p style={{margin:0}} className={`${styles['file-name']} ${className}`}>Selected file: {file.name}</p>
             :
                 <p style={{margin:0}}>No file selected</p>}
         </div>

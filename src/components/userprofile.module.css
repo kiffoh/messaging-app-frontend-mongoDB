@@ -17,6 +17,10 @@
     position: relative;
 }
 
+.user-photo-container {
+    display: flex;
+    justify-content: center;
+}
 .edit-logo {
     height: 1em;
     color: var(--default-colour);

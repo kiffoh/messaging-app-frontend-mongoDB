@@ -15,7 +15,7 @@ const editLogo = import.meta.env.VITE_EDIT_LOGO;
 
 function UserProfile({group}) {
     // I want to import the navbar and footer I use from the Homepage into here
-    const {user} = useAuth();
+    const {user, setUser} = useAuth();
     const {userId} = useParams();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -155,7 +155,7 @@ function UserProfile({group}) {
             let data = {};
             
             if (editUsername) {
-                if (username.trim() === "") return setError("Username cannot be empty.");
+                if (username === undefined || username.trim() === "") return setError("Username cannot be empty.");
                 const currentName = group ? chatData.name : chatData.username;
                 if (currentName !== username ) {
 
@@ -196,6 +196,7 @@ function UserProfile({group}) {
                 if (response.status != 200) return setError('An error occurred when trying to update the profile.');
     
                 setChatData(response.data)
+                setUser(response.data)
                 
                 setProfilePic(response.data.photo);
                 currentProfilePic.current = response.data.photo;

@@ -73,7 +73,6 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    
 }
 
 .chat-root {
@@ -86,11 +85,19 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     background-color: whitesmoke;
+    align-items: center;
 }
 
 .message-box {
     resize: none;
-    border: none
+    border: none;
+    margin: 0;
+    box-shadow: none;
+    z-index: 1;
+}
+
+.message-box:focus {
+    box-shadow: 0px 1px 6px 1px rgba(27, 30, 68, 0.6);
 }
 
 .message-box::-webkit-scrollbar {
@@ -101,4 +108,24 @@
     width: 3em;
     height: 3em;
     border-radius: 50%;
+}
+
+.user-photo-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.send-btn {
+    color: var(--default-colour-green);
+    height: 100%;
+
+}
+
+.send-btn-container, .attach-btn-container {
+    height: 100%;
+}
+
+.attach-btn {
+    color: var(--default-colour-blue);
+    height: 100%;
 }

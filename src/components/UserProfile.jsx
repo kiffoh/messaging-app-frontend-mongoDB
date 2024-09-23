@@ -236,6 +236,14 @@ function UserProfile({group}) {
         
     }
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setError(false)
+        }, 2000)
+
+        return () => clearTimeout(timer); // Clean up timer on unmount
+    }, [error])
+
     if (loading) return <h1>Fetching profile data...</h1>
 
     return (

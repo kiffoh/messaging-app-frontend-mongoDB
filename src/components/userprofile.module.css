@@ -55,6 +55,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1.5em;
 }
 
@@ -102,3 +103,18 @@
 .delete-profile {
     background-color: rgb(218, 65, 65);
 }
+
+.file-name.profile {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(110%, -50%);
+}
+
+
+  
+  /* Enhance the appearance when hovering over the save button */
+  .save-edit:hover {
+    background-color: var(--default-colour-soft-green);
+    cursor: pointer;
+  }

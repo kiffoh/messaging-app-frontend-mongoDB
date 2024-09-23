@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import styles from './displayedChat.module.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const backendURL = import.meta.env.VITE_SERVER_URL; 
-
+const backendURL = import.meta.env.VITE_SERVER_URL;
+import { MdAttachFile } from "react-icons/md";
+import { IoIosSend } from "react-icons/io";
 
 function DisplayedChat({displayedChat, user, authorIdToPhotoURL}) {
     const [profileInformation, setProfileInformation] = useState('select for contact info');
@@ -55,6 +56,7 @@ function DisplayedChat({displayedChat, user, authorIdToPhotoURL}) {
 
     useEffect(() => {
         setProfileInformation('select for contact info')
+        console.log(displayedChat)
         setFadeOut(false); // Reset fade state
         const timer = setTimeout(() => {
             setFadeOut(true); // Trigger fade-out effect
@@ -84,25 +86,37 @@ function DisplayedChat({displayedChat, user, authorIdToPhotoURL}) {
                     message.authorId === user.id ? 
                     <div key={message.id} className={styles['user-chat-container']}>
                         <div className={styles['user-chat']}>{message.content}</div>
-                        <img src={authorIdToPhotoURL[message.authorId]} alt='user-photo' className={styles['user-photo']}/>
+                        <div className={styles['user-photo-container']}>
+                            <img src={authorIdToPhotoURL[message.authorId]} alt='user-photo' className={styles['user-photo']}/>
+                        </div>
                     </div>
                     :
                     <div key={message.id} className={styles['responder-chat-container']}>
-                        <img src={authorIdToPhotoURL[message.authorId]} alt='recipient-photo' className={styles['recipient-photo']}/>
+                        <div className={styles['user-photo-container']}>
+                            <img src={authorIdToPhotoURL[message.authorId]} alt='recipient-photo' className={styles['recipient-photo']}/>
+                        </div>
                         <div className={styles['responder-chat']}>{message.content}</div>
                     </div>
                 ))}
             </div>
             <div className={styles['messaging-container']}>
                 <form onSubmit={sendMessage} className={styles['message-container']}>
-                    <button type='button'>File</button>
+                    <div className={styles['attach-btn-container']}>
+                        <button type='button' className={styles['attach-btn']}>
+                            <MdAttachFile size={24}/>
+                        </button>
+                    </div>
                     <textarea
                         className={styles['message-box']}
                         name='message'
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                     />
-                    <button type='submit' className={styles['send-btn']}>Send</button>
+                    <div className={styles['send-btn-container']}>
+                        <button type='submit' className={styles['send-btn']}>
+                            <IoIosSend size={24}/>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

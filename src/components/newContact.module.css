@@ -1,0 +1,99 @@
+.user-photo {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+}
+
+.usernames-container {
+    display: grid;
+    gap: 0.5em;
+    max-height: 20em;
+    overflow: hidden;
+    overflow-y: auto;
+    align-items: center;
+    justify-items: center;
+}
+
+.usernames-container::-webkit-scrollbar {
+    background-color: transparent;
+}
+
+.usernames-container::-webkit-scrollbar-thumb {
+    width: 0px;
+    opacity: 0;
+}
+
+.usernames-container::-webkit-scrollbar-track {
+    color: transparent;
+}
+
+.user-div {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1em;
+    border-radius: 10% 10% 10% 10% / 30% 30% 30% 30%;
+}
+
+.user-div:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.new-contact-root {
+    display: flex;
+    justify-content: center;
+}
+
+.new-contact-body {
+    gap: 2em;
+    background-color: var(--default-colour-light);
+    border-radius: 2%;
+    padding: 2em;
+    display: grid;
+    user-select: none;
+}
+
+.title {
+    margin-bottom: 0;
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-name {
+    display: flex;
+    align-items: flex-start;
+    min-width: 7em
+}
+
+.cancel-btn {
+    background-color: var(--default-colour-light-2);
+    font-weight: bold;
+}
+
+.back-btn {
+    background-color: var(--default-colour-soft-purple);
+    color: whitesmoke;
+}
+
+.add-contacts-btn {
+    background-color: var(--default-colour-soft-green);
+}
+
+.checkbox, .checkbox-highlighted {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    border: 1.5px solid var(--default-colour)
+}
+
+.checkbox {
+    background-color: whitesmoke;
+}
+
+.checkbox-highlighted {
+    background-color: var(--default-colour-green); /* Green background */
+}

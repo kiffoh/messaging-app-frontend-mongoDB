@@ -118,14 +118,23 @@
 .send-btn {
     color: var(--default-colour-green);
     height: 100%;
-
 }
 
 .send-btn-container, .attach-btn-container {
     height: 100%;
+    display: flex;
+    align-items: flex-end;
 }
 
 .attach-btn {
     color: var(--default-colour-blue);
     height: 100%;
+}
+
+.send-btn:hover {
+    border: 2px solid var(--default-colour-soft-green);
+}
+
+.attach-btn:hover {
+    border: 2px solid var(--default-colour-soft-blue);
 }

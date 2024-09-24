@@ -12,6 +12,7 @@
   --default-colour-light-2: rgba(198,208,199,255);
   --default-colour-pink: rgba(220,147,231,255);
   --default-colour-blue: rgba(88,144,213,255);
+  --default-colour-soft-blue: rgba(88, 144, 255, 0.5);
 
 
   background-color: var(--default-colour-light-2);

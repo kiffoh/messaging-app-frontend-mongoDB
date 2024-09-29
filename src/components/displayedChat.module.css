@@ -4,12 +4,15 @@
     background-color: var(--default-colour-light);
     gap: 2em;
     padding: 1em;
+    position: relative;
 }
 
 .user-chat, .responder-chat {
     padding: 0.25em 1em;
     display: flex;
     align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1em;
 }
 
 .user-chat-container {
@@ -88,7 +91,7 @@
     align-items: center;
 }
 
-.message-box {
+.message-box, .update-message-box {
     resize: none;
     border: none;
     margin: 0;
@@ -96,11 +99,15 @@
     z-index: 1;
 }
 
+.update-message-box:focus {
+    box-shadow: none
+}
+
 .message-box:focus {
     box-shadow: 0px 1px 6px 1px rgba(27, 30, 68, 0.6);
 }
 
-.message-box::-webkit-scrollbar {
+.message-box::-webkit-scrollbar, .update-message-box::-webkit-scrollbar {
     background-color: transparent; /* Hidden by default */
 }
 
@@ -131,10 +138,49 @@
     height: 100%;
 }
 
-.send-btn:hover {
+.send-btn:hover, .update-message-btn:hover {
     border: 2px solid var(--default-colour-soft-green);
 }
 
-.attach-btn:hover {
+.attach-btn:hover, .edit-btn:hover {
     border: 2px solid var(--default-colour-soft-blue);
+}
+
+.update-delete-container {
+    position: absolute;
+    
+}
+
+.update-delete-container.invisible {
+    display: none;
+    position: absolute;
+}
+
+.update-delete-container.visible {
+    transform: translate(-100%, -100%);
+    display: grid;
+    z-index: 1;
+}
+
+.edit-btn, .delete-btn, .update-message-btn, .cancel-message-btn {
+    border: 2px solid transparent;
+}
+
+.delete-btn:hover {
+    border: 2px solid rgba(232, 38, 38, 0.674);
+}
+
+.update-message-form {
+    display: flex;
+    align-items: center;
+}
+
+.cancel-message-btn, .update-message-btn {
+    height: fit-content;
+    width: fit-content;
+    background-color: var(--default-colour-light);
+}
+
+.cancel-message-btn:hover {
+    border: 2px solid var(--default-colour-light-2);
 }

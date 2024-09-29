@@ -4,7 +4,7 @@ import styles from './userprofile.module.css'
 import useAuth from '../Authentification/useAuth';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import nameGroup from '../function/nameGroup';
+import nameGroup from '../functions/nameGroup';
 import { useNavigate } from 'react-router-dom';
 import PhotoUpload from './PhotoUpload';
 import { string } from 'prop-types';

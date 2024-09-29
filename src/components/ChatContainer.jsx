@@ -87,7 +87,7 @@ function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewC
                     />
                 )
             ) : (
-                displayedChat && <DisplayedChat displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL}/>
+                displayedChat && <DisplayedChat displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL} setDisplayedChat={setDisplayedChat}/>
             )}
         </>
     );

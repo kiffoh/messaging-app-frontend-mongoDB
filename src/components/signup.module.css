@@ -84,11 +84,13 @@
     }
 }
 
+/*
 button {
     width: fit-content;
     height: fit-content;
-    /*transform: translateX(30%);*/
+    /*transform: translateX(30%);
 }
+*/
 
 .storyset-link {
     position: absolute;

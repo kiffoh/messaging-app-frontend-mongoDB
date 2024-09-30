@@ -14,7 +14,8 @@ function DisplayedChat({displayedChat, user, authorIdToPhotoURL, setDisplayedCha
         <div className={styles['chat-root']}>
             <ProfileHeader displayedChat={displayedChat} user={user} />
             <Messages displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL} setDisplayedChat={setDisplayedChat}/>
-            <MessageInputForm displayedChat={displayedChat} user={user} />
+            {error && <h3>{error}</h3>}
+            <MessageInputForm displayedChat={displayedChat} user={user} setError={setError} setDisplayedChat={setDisplayedChat}/>
         </div>
     )
 }

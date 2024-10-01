@@ -6,6 +6,7 @@ import axios from 'axios';
 import { RxUpdate } from "react-icons/rx";
 import { MdOutlineCancel } from "react-icons/md";
 import { useSocket } from '../socketContext/useSocket';
+import formatDateTime from '../functions/formatTimeDate';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
@@ -20,6 +21,10 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
   const clickedMessage = useRef(null);
   const [editMsg, setEditMsg] = useState(false);
   const [updatedMessage, setUpdatedMessage] = useState('');
+
+  useEffect(() => {
+    console.log(displayedChat)
+  }, [displayedChat])
 
   const handleUserMessageClick = (event, message) => {
     event.stopPropagation(); // Stop click from propagating to parent
@@ -113,7 +118,6 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
       };
     }, [socket]);
 
-
   return (
     <div className={styles['chat-body']} ref={chatBodyRef} onClick={() => setUserClick(false)}>
       {error && <h3>{error}</h3>}
@@ -136,43 +140,48 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
           </button>
         </div>
       )}
-      {displayedChat.messages.map((message) =>
-        message.authorId === user.id ? (
-            <div key={message.id} className={styles['user-chat-container']}>
-                {editMsg && message.id === clickedMessage.current.id? (
-                    <form className={styles['update-message-form']} onSubmit={handleUpdateMessage}>
-                        <button type='button' className={styles['cancel-message-btn']} onClick={() => setEditMsg(false)}> {/* I only need to remove the textarea. The rest of the logic is handled on the initialisation of the edit button. */}
-                            <MdOutlineCancel size={24}/>
-                        </button>
-                        <button type='submit' className={styles['update-message-btn']}>
-                            <RxUpdate size={24}/>
-                        </button>
-                        <div
-                            className={styles['user-chat']}
-                        >
-                            <textarea
-                                className={styles['update-message-box']}
-                                name='message'
-                                value={updatedMessage}
-                                onChange={(e) => setUpdatedMessage(e.target.value)}
-                            />
-                        </div>
-                    </form>
-                ) : (
-                    <div
-                        className={styles['user-chat']}
-                        onClick={(event) => handleUserMessageClick(event, message)}
-                    >
-                        {message.content}
-                    </div>
-                )}
-                <div className={styles['user-photo-container']}>
-                    <img
-                        src={authorIdToPhotoURL[message.authorId]}
-                        alt="user-photo"
-                        className={styles['user-photo']}
-                    />
+      {displayedChat.messages.map((message) => {
+        const formattedDateTime = formatDateTime(message.updatedAt);
+
+        return message.authorId === user.id ? (
+          <div key={message.id} className={styles['user-chat-container']}>
+            {editMsg && message.id === clickedMessage.current?.id ? (
+              <form className={styles['update-message-form']} onSubmit={handleUpdateMessage}>
+                <button type='button' className={styles['cancel-message-btn']} onClick={() => setEditMsg(false)}>
+                  <MdOutlineCancel size={24}/>
+                </button>
+                <button type='submit' className={styles['update-message-btn']}>
+                  <RxUpdate size={24}/>
+                </button>
+                <div className={styles['user-chat']}>
+                  <textarea
+                    className={styles['update-message-box']}
+                    name='message'
+                    value={updatedMessage}
+                    onChange={(e) => setUpdatedMessage(e.target.value)}
+                  />
                 </div>
+              </form>
+            ) : (
+              <div
+                className={styles['user-chat']}
+                onClick={(event) => handleUserMessageClick(event, message)}
+              >
+                {message.content}
+                <div className={styles['user-message-timestamp']}>
+                  {message.createdAt === message.updatedAt
+                    ? `${formattedDateTime.time}, ${formattedDateTime.date}`
+                    : `Edited ${formattedDateTime.time}, ${formattedDateTime.date}`}
+                </div>
+              </div>
+            )}
+            <div className={styles['user-photo-container']}>
+              <img
+                src={authorIdToPhotoURL[message.authorId]}
+                alt="user-photo"
+                className={styles['user-photo']}
+              />
+            </div>
           </div>
         ) : (
           <div key={message.id} className={styles['responder-chat-container']}>
@@ -183,10 +192,17 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
                 className={styles['recipient-photo']}
               />
             </div>
-            <div className={styles['responder-chat']}>{message.content}</div>
+            <div className={styles['responder-chat']}>
+              {message.content}
+              <div className={styles['responder-message-timestamp']}>
+                  {message.createdAt === message.updatedAt
+                    ? `${formattedDateTime.time}, ${formattedDateTime.date}`
+                    : `Edited ${formattedDateTime.time}, ${formattedDateTime.date}`}
+                </div>
+              </div>
           </div>
-        )
-      )}
+        );
+      })}
     </div>
   );
 }

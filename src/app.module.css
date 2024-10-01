@@ -79,6 +79,15 @@
     position: relative;
     display: flex;
     flex-direction: column;
+
+    /* Smooth transition for the scrollbar */
+    scrollbar-color: transparent transparent; /* Default scrollbar is transparent */
+    scrollbar-width: thin;
+    transition: scrollbar-color 0.3s ease-in-out;
+}
+
+.user-chats-container:hover {
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* On hover, scrollbar becomes visible */
 }
 
 /* Ensure the content remains left-to-right */
@@ -89,30 +98,30 @@
 
 .user-chats-container::-webkit-scrollbar {
     width: 8px;
-    background-color: transparent; /* Hidden by default */
     opacity: 0; /* Fully hide the scrollbar */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition */
 }
 
 .user-chats-container:hover::-webkit-scrollbar {
-    opacity: 1; 
-    transition: opacity 0.3s ease;
+    opacity: 1;
 }
 
 .user-chats-container::-webkit-scrollbar-thumb {
-    border-radius: 8px;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.3); /* Default scrollbar color */
 }
 
 /* Show the scrollbar only when the user hovers */
 .user-chats-container:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.3); /* Adjust scrollbar color */
+    background-color: rgba(0, 0, 0, 0.3);
 }
+
 .user-chats-container::-webkit-scrollbar-thumb:hover {
     background-color: rgba(0, 0, 0, 0.5); /* Darker on hover */
 }
 
 .user-chats-container::-webkit-scrollbar-track {
     background-color: transparent;
-    border-radius: 8px;
 }
 
 .last-chat-message, .chat-name {

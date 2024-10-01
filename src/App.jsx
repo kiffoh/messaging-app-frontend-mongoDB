@@ -42,17 +42,17 @@ function App() {
 
   useEffect(() => {
     if (userChats.length > 0 && displayedChatId === null) setDisplayedChatId(userChats.filter(chat => chat.messages.length > 0)[0].id)
+      
+    if (!displayedChat || displayedChat.id != displayedChatId) {
+      const selectedChat = userChats.find(chat => chat.id === displayedChatId); // Filter by chat ID
+      setDisplayedChat(selectedChat); // Avoid setting undefined
 
-    const selectedChat = userChats.find(chat => chat.id === displayedChatId); // Filter by chat ID
-    setDisplayedChat(selectedChat); // Avoid setting undefined
-
-    const idToPhoto = {}
-    if (selectedChat) {
-      selectedChat.members.map(member => idToPhoto[member.id] = member.photo != null ? member.photo : defaultPic)
-      setAuthorIdToPhotoURL(idToPhoto);
+      const idToPhoto = {}
+      if (selectedChat) {
+        selectedChat.members.map(member => idToPhoto[member.id] = member.photo != null ? member.photo : defaultPic)
+        setAuthorIdToPhotoURL(idToPhoto);
+      }
     }
-
-
   }, [userChats, displayedChatId]);
 
   useEffect(() => {
@@ -71,6 +71,19 @@ function App() {
     }
     if (user) updateUser();
   }, [])
+
+  // This updates the userChats when displayedChat is updated in child components 
+  useEffect(() => {
+    if (displayedChat && displayedChatId) {
+      setUserChats(prevChats =>
+        prevChats.map(chat =>
+          chat.id === displayedChatId
+            ? { ...chat, messages: displayedChat.messages } // Only update the messages
+            : chat
+        )
+      );
+    }
+  }, [displayedChat, displayedChatId]);  
 
   if (loading) return <h1>Loading... </h1>
 

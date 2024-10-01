@@ -205,8 +205,8 @@
     right: 0%;
 }
 
-.user-chat-container:hover .user-message-timestamp,
-.responder-chat-container:hover .responder-message-timestamp {
+.user-chat:hover .user-message-timestamp,
+.responder-chat:hover .responder-message-timestamp {
     opacity: 1;
     visibility: visible;
 

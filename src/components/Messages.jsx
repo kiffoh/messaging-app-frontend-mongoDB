@@ -5,12 +5,13 @@ import { MdDeleteForever } from "react-icons/md";
 import axios from 'axios';
 import { RxUpdate } from "react-icons/rx";
 import { MdOutlineCancel } from "react-icons/md";
-import { Socket } from 'socket.io-client';
+import { useSocket } from '../socketContext/useSocket';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
+
 function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat }) {
-  const socket = Socket();
+  const socket = useSocket();
   const [error, setError] = useState(false);
   const [userClick, setUserClick] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
@@ -58,9 +59,10 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
             content: updatedMessage
         })
 
-        if (response.status != 200) setError('An error ocurred when trying to update the message.')
+        if (response.status === 200) {
+            socket.emit('messageUpdated', response.data);
+        }
 
-        // How should I handle the updated message?
         setEditMsg(false);
 
     } catch (err) {
@@ -69,45 +71,48 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
     }
   }
 
-  useEffect(() => {
-  socket.on('messageUpdated', (updatedMessage) => {
-    setDisplayedChat((prevChat) => ({
-      ...prevChat,
-      messages: prevChat.messages.map((msg) =>
-        msg.id === updatedMessage.id ? updatedMessage : msg
-      ),
-    }));
-  });
-
-  socket.on('messageDeleted', (deletedMessageId) => {
-    setDisplayedChat((prevChat) => ({
-      ...prevChat,
-      messages: prevChat.messages.filter((msg) => msg.id !== deletedMessageId),
-    }));
-  });
-
-  return () => {
-    socket.off('messageUpdated');
-    socket.off('messageDeleted');
-  };
-}, [socket]);
-
-
   const handleDeleteBtnClick = async () => {
-    if (!clickedMessage.current) return setError('The message could not be deleted. Please try again.')
-
-    setUserClick(false)
-    
-    try {
-        const response = await axios.delete(`${backendURL}/messages/${displayedChat.id}/${clickedMessage.current.id}`)
-
-        if (response.status != 200) setError('An error ocurred when trying to delete the message.')
-
-    } catch (err) {
-        console.log(err)
-        setError('An unknown error ocurred when trying to delete the message.')
+      if (!clickedMessage.current) return setError('The message could not be deleted. Please try again.')
+        
+        setUserClick(false)
+        
+        try {
+            const response = await axios.delete(`${backendURL}/messages/${displayedChat.id}/${clickedMessage.current.id}`)
+            
+            if (response.status === 200) {
+              socket.emit('messageDeleted', clickedMessage.current.id)
+            }
+            
+        } catch (err) {
+            console.log(err)
+            setError('An unknown error ocurred when trying to delete the message.')
+        }
     }
-  }
+    
+    useEffect(() => {
+      socket.on('messageUpdated', (updatedMessage) => {
+        setDisplayedChat((prevChat) => ({
+          ...prevChat,
+          messages: prevChat.messages.map((msg) =>
+            msg.id === updatedMessage.id ? updatedMessage : msg
+          ),
+        }));
+      });
+  
+    
+      socket.on('messageDeleted', (deletedMessageId) => {
+        setDisplayedChat((prevChat) => ({
+          ...prevChat,
+          messages: prevChat.messages.filter((msg) => msg.id !== deletedMessageId),
+        }));
+      });  
+  
+      return () => {
+      socket.off('messageUpdated');
+      socket.off('messageDeleted');
+      };
+    }, [socket]);
+
 
   return (
     <div className={styles['chat-body']} ref={chatBodyRef} onClick={() => setUserClick(false)}>
@@ -134,7 +139,7 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
       {displayedChat.messages.map((message) =>
         message.authorId === user.id ? (
             <div key={message.id} className={styles['user-chat-container']}>
-                {editMsg ? (
+                {editMsg && message.id === clickedMessage.current.id? (
                     <form className={styles['update-message-form']} onSubmit={handleUpdateMessage}>
                         <button type='button' className={styles['cancel-message-btn']} onClick={() => setEditMsg(false)}> {/* I only need to remove the textarea. The rest of the logic is handled on the initialisation of the edit button. */}
                             <MdOutlineCancel size={24}/>

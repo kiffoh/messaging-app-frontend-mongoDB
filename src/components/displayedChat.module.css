@@ -211,3 +211,7 @@
     opacity: 1;
     visibility: visible;
 }
+
+.chat-body::-webkit-scrollbar {
+    visibility: hidden;
+}

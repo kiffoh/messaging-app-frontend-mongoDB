@@ -118,92 +118,129 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
       };
     }, [socket]);
 
-  return (
-    <div className={styles['chat-body']} ref={chatBodyRef} onClick={() => setUserClick(false)}>
-      {error && <h3>{error}</h3>}
-      {userClick && (
-        <div
-          className={`${styles['update-delete-container']} ${
-            userClick ? styles['visible'] : styles['invisible']
-          }`}
-          style={{
-            top: `${coords.y}px`,
-            left: `${coords.x}px`,
-            position: 'absolute',
-          }}
-        >
-          <button className={styles['edit-btn']} onClick={handleEditBtnClick}>
-            <FaEdit size={24}/>
-          </button>
-          <button className={styles['delete-btn']} onClick={handleDeleteBtnClick}>
-            <MdDeleteForever size={24}/>
-          </button>
-        </div>
-      )}
-      {displayedChat.messages.map((message) => {
-        const formattedDateTime = formatDateTime(message.updatedAt);
+    // Code for clicking on an image to enlarge it
+    const [enlargeImage, setEnlargeImage] = useState(null);
 
-        return message.authorId === user.id ? (
-          <div key={message.id} className={styles['user-chat-container']}>
-            {editMsg && message.id === clickedMessage.current?.id ? (
-              <form className={styles['update-message-form']} onSubmit={handleUpdateMessage}>
-                <button type='button' className={styles['cancel-message-btn']} onClick={() => setEditMsg(false)}>
-                  <MdOutlineCancel size={24}/>
-                </button>
-                <button type='submit' className={styles['update-message-btn']}>
-                  <RxUpdate size={24}/>
-                </button>
-                <div className={styles['user-chat']}>
-                  <textarea
-                    className={styles['update-message-box']}
-                    name='message'
-                    value={updatedMessage}
-                    onChange={(e) => setUpdatedMessage(e.target.value)}
-                  />
+    const handleImageClick = (event, url) => {
+      event.stopPropagation()
+
+      setEnlargeImage(url);
+    };
+
+  return (
+    <>
+    
+      <div className={styles['chat-body']} ref={chatBodyRef} onClick={() => setUserClick(false)}>
+        {enlargeImage && 
+        <div className={styles['enlarged-image-container']} onClick={() => setEnlargeImage(null)}>
+          <img src={enlargeImage} className={styles['enlarged-image']}></img>
+        </div>}
+        {error && <h3>{error}</h3>}
+        {userClick && (
+          <div
+            className={`${styles['update-delete-container']} ${
+              userClick ? styles['visible'] : styles['invisible']
+            }`}
+            style={{
+              top: `${coords.y}px`,
+              left: `${coords.x}px`,
+              position: 'absolute',
+            }}
+          >
+            <button className={styles['edit-btn']} onClick={handleEditBtnClick}>
+              <FaEdit size={24}/>
+            </button>
+            <button className={styles['delete-btn']} onClick={handleDeleteBtnClick}>
+              <MdDeleteForever size={24}/>
+            </button>
+          </div>
+        )}
+        {displayedChat.messages.map((message) => {
+          const formattedDateTime = formatDateTime(message.updatedAt);
+
+          return message.authorId === user.id ? (
+            <div key={message.id} className={styles['user-chat-container']}>
+              {editMsg && message.id === clickedMessage.current?.id ? (
+                <form className={styles['update-message-form']} onSubmit={handleUpdateMessage}>
+                  <button type='button' className={styles['cancel-message-btn']} onClick={() => setEditMsg(false)}>
+                    <MdOutlineCancel size={24}/>
+                  </button>
+                  <button type='submit' className={styles['update-message-btn']}>
+                    <RxUpdate size={24}/>
+                  </button>
+                  <div className={styles['user-chat']}>
+                    {message.photoUrl && 
+                    <img 
+                      src={message.photoUrl} 
+                      alt='User photo' 
+                      className={styles['user-photo-message']}
+                      onClick={(event) => handleImageClick(event, message.photoUrl)}>
+                    </img>}
+                    <textarea
+                      className={styles['update-message-box']}
+                      name='message'
+                      value={updatedMessage}
+                      onChange={(e) => setUpdatedMessage(e.target.value)}
+                    />
+                  </div>
+                </form>
+              ) : (
+                <div
+                  className={styles['user-chat']}
+                  onClick={(event) => handleUserMessageClick(event, message)}
+                >
+                  {message.photoUrl && 
+                  <img 
+                  src={message.photoUrl} 
+                  alt='User photo' 
+                  className={styles['user-photo-message']}
+                  onClick={(event) => handleImageClick(event, message.photoUrl)}>
+                  </img>}
+                  {message.content}
+                  <div className={styles['user-message-timestamp']}>
+                    {message.createdAt === message.updatedAt
+                      ? `${formattedDateTime.time}, ${formattedDateTime.date}`
+                      : `Edited ${formattedDateTime.time}, ${formattedDateTime.date}`}
+                  </div>
                 </div>
-              </form>
-            ) : (
-              <div
-                className={styles['user-chat']}
-                onClick={(event) => handleUserMessageClick(event, message)}
-              >
+              )}
+              <div className={styles['user-photo-container']}>
+                <img
+                  src={authorIdToPhotoURL[message.authorId]}
+                  alt="user-photo"
+                  className={styles['user-photo']}
+                />
+              </div>
+            </div>
+          ) : (
+            <div key={message.id} className={styles['responder-chat-container']}>
+              <div className={styles['user-photo-container']}>
+                <img
+                  src={authorIdToPhotoURL[message.authorId]}
+                  alt="recipient-photo"
+                  className={styles['recipient-photo']}
+                />
+              </div>
+              <div className={styles['responder-chat']}>
+                {message.photoUrl && 
+                <img 
+                  src={message.photoUrl} 
+                  alt='Responder photo' 
+                  className={styles['responder-photo-message']}
+                  onClick={(event) => handleImageClick(event, message.photoUrl)}>
+              </img>}
                 {message.content}
-                <div className={styles['user-message-timestamp']}>
-                  {message.createdAt === message.updatedAt
-                    ? `${formattedDateTime.time}, ${formattedDateTime.date}`
-                    : `Edited ${formattedDateTime.time}, ${formattedDateTime.date}`}
+                <div className={styles['responder-message-timestamp']}>
+                    {message.createdAt === message.updatedAt
+                      ? `${formattedDateTime.time}, ${formattedDateTime.date}`
+                      : `Edited ${formattedDateTime.time}, ${formattedDateTime.date}`}
+                  </div>
                 </div>
-              </div>
-            )}
-            <div className={styles['user-photo-container']}>
-              <img
-                src={authorIdToPhotoURL[message.authorId]}
-                alt="user-photo"
-                className={styles['user-photo']}
-              />
             </div>
-          </div>
-        ) : (
-          <div key={message.id} className={styles['responder-chat-container']}>
-            <div className={styles['user-photo-container']}>
-              <img
-                src={authorIdToPhotoURL[message.authorId]}
-                alt="recipient-photo"
-                className={styles['recipient-photo']}
-              />
-            </div>
-            <div className={styles['responder-chat']}>
-              {message.content}
-              <div className={styles['responder-message-timestamp']}>
-                  {message.createdAt === message.updatedAt
-                    ? `${formattedDateTime.time}, ${formattedDateTime.date}`
-                    : `Edited ${formattedDateTime.time}, ${formattedDateTime.date}`}
-                </div>
-              </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 

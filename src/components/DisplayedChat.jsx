@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './displayedChat.module.css'
 import MessageInputForm from './MessageInputForm';
 import Messages from './Messages';
@@ -9,6 +9,14 @@ function DisplayedChat({displayedChat, user, authorIdToPhotoURL, setDisplayedCha
     
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+
+        const timer = setTimeout(() => {
+            setError(null)
+        }, 2000)
+
+        return clearTimeout(timer)
+    }, error)
 
     return (
         <div className={styles['chat-root']}>

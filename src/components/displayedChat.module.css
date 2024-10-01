@@ -5,6 +5,7 @@
     gap: 2em;
     padding: 2em;
     position: relative;
+    overflow: overlay;
 }
 
 .user-chat, .responder-chat {
@@ -209,5 +210,4 @@
 .responder-chat:hover .responder-message-timestamp {
     opacity: 1;
     visibility: visible;
-
 }

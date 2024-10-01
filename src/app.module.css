@@ -8,6 +8,7 @@
     color: var(--default-colour);
     display: grid;
     grid-template-columns: auto 1fr;
+    overflow: overlay;
 }
 
 @media (min-width: 800px) {
@@ -29,6 +30,7 @@
     user-select: none;
     display: grid;
     grid-template-rows: auto 1fr;
+    overflow: overlay;
 }
 
 .user-chat, .user-chat-highlighted {
@@ -127,4 +129,8 @@
 .new-chat-btn {
     background-color: var(--default-colour-pink);
     color: whitesmoke;
+}
+
+.displayed-chat-container {
+    overflow: overlay;
 }

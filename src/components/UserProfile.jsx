@@ -194,9 +194,9 @@ function UserProfile({group}) {
                 });
                 
                 if (response.status != 200) return setError('An error occurred when trying to update the profile.');
-    
+                    
                 setChatData(response.data)
-                setUser(response.data)
+                if (!group) setUser(response.data);
                 
                 setProfilePic(response.data.photo);
                 currentProfilePic.current = response.data.photo;
@@ -223,10 +223,10 @@ function UserProfile({group}) {
         if (!window.confirm(`Are you sure you want to delete this ${group ? 'group' : 'profile'}?`)) {
             return;
         }
-    
+        
         try {
             const response = await axios.delete(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`, {
-                user
+                headers: {'user-id': user.id }
             })
             if (response.status != 200) return setError('An error occurred when trying to delete the profile.');
         

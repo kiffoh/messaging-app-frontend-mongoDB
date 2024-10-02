@@ -29,8 +29,8 @@ const router = createBrowserRouter([
     {
         path: '/groups',
         element: (<AuthProvider>
-            <UserLayout />
-        </AuthProvider>
+                    <UserLayout />
+                </AuthProvider>
         ),
         children: groupRoutes,
     }

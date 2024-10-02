@@ -5,6 +5,7 @@ import {jwtDecode} from 'jwt-decode'
 import styles from './login.module.css'
 import '../../LogInGlobalOverride.css'
 import useAuth from '../../Authentification/useAuth';
+import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function LogIn() {
@@ -29,16 +30,12 @@ function LogIn() {
         }
 
         try {
-            const response = await fetch(`${backendURL}/users/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-
-                },
-                body: JSON.stringify({username, password}),
+            const response = await axios.post(`${backendURL}/users/login`, {
+                username,
+                password
             })
 
-            if (response.ok) {
+            if (response.status === 200) {
                 const data = await response.json();
                 const token = data.token;
 
@@ -50,7 +47,11 @@ function LogIn() {
                 navigate('/');
             }
         } catch (err) {
-            setError('Log in failed. Please try again.')
+            if (err.response && err.response.status === 400) {
+                setError('Invalid username or password.');
+            } else {
+                setError('Log in failed. Please try again.');
+            }    
         }
     }
 
@@ -63,7 +64,7 @@ function LogIn() {
         <div className={styles['login-body']}>
             <div className={styles["login-form-container"]}>
                 <h1 className={styles.title}>Log In</h1>
-                {error && <h3>{error}</h3>}
+                {error && <h3 className={styles['error']}>{error}</h3>}
                 <form onSubmit={handleFormSubmit}>
                     <input 
                         type='text'

@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import styles from './signup.module.css'
 import '../../SignUpGlobalOverride.css'
 import useAuth from '../../Authentification/useAuth';
+import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL;
+const messageIconLeft = import.meta.VITE_MESSAGE_ICON_LEFT;
+const messageIconRight = import.meta.VITE_MESSAGE_ICON_RIGHT;
 
 function SignUp() {
     const [username, setUsername] = useState('');
@@ -28,17 +31,13 @@ function SignUp() {
         }
 
         try {
-            const response = await fetch(`${backendURL}/users/signup`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-
-                },
-                body: JSON.stringify({username, password}),
+            const response = await axios.post(`${backendURL}/users/signup`, {
+                username,
+                password
             })
 
-            if (response.ok) {
-                const data = await response.json();
+            if (response.status === 201) {
+                const data = response.data;
                 console.log('Response okay: ', data)
                 
                 const token = data.token;
@@ -67,7 +66,7 @@ function SignUp() {
                         </div>
                         <div className={styles['input-div-container']}>
                             <div className={styles['input-div']}>
-                                {error && <h3>{error}</h3>}
+                                {error && <h3 className={styles['error']}>{error}</h3>}
                                 <div className={styles['username']}>
                                     <label className={styles['username-label']}
                                         htmlFor='username'

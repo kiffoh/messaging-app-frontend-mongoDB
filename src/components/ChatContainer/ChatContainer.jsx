@@ -5,7 +5,7 @@ import DirectMessage from './NewChat/DirectMessage/DirectMessage';
 import DisplayedChat from './DisplayedChat/DisplayedChat';
 import GroupMessage from './NewChat/GroupMessage/GroupMessage';
 
-function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats, setDisplayedChatId, setUserChats, authorIdToPhotoURL }) {
+function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats, setDisplayedChatId, setUserChats, authorIdToPhotoURL, setAuthorIdToPhotoURL }) {
     const [search, setSearch] = useState('')
     const [contacts, setContacts] = useState([]) // Need id's names and photos
     const [newGroup, setNewGroup] = useState(false);
@@ -87,7 +87,7 @@ function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewC
                     />
                 )
             ) : (
-                displayedChat && <DisplayedChat displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL} setDisplayedChat={setDisplayedChat}/>
+                displayedChat && <DisplayedChat displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL} setDisplayedChat={setDisplayedChat} setAuthorIdToPhotoURL={setAuthorIdToPhotoURL}/>
             )}
         </>
     );

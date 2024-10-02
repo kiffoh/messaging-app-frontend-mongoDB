@@ -248,7 +248,7 @@ function UserProfile({group}) {
     if (loading) return <h1>Fetching profile data...</h1>
 
     return (
-        <>
+        <div className={styles['user-profile-root']}>
             <NavBar />
             <div className={styles['userprofile-body']}>
                 <div className={styles['userprofile-flexbox']}>
@@ -360,7 +360,7 @@ function UserProfile({group}) {
                     )}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

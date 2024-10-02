@@ -155,3 +155,10 @@
   .delete-btn-container {
     padding-bottom: 2em;
   }
+
+  .user-profile-root {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: overlay;
+    height: 100%;
+  }

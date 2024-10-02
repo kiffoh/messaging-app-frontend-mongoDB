@@ -1,5 +1,5 @@
-import LogIn from "./components/LoginForm";
-import styles from '../src/components/login.module.css'
+import LogIn from "./components/LogIn/LoginForm";
+import styles from '../src/components/LogIn/login.module.css'
 import useAuth from './Authentification/useAuth'
 import App from "./App";
 

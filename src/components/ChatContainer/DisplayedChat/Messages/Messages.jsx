@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import styles from './displayedChat.module.css';
+import styles from '../displayedChat.module.css';
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import axios from 'axios';
 import { RxUpdate } from "react-icons/rx";
 import { MdOutlineCancel } from "react-icons/md";
-import { useSocket } from '../socketContext/useSocket';
-import formatDateTime from '../functions/formatTimeDate';
+import { useSocket } from '../../../../socketContext/useSocket';
+import formatDateTime from '../../../../functions/formatTimeDate';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;
 

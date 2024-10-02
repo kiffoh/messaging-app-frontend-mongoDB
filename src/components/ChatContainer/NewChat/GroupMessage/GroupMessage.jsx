@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import styles from './groupMessage.module.css'
 import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL;
-import nameGroup from "../functions/nameGroup";
-import PhotoUpload from "./PhotoUpload";
-import NewContact from './NewContact'
+import nameGroup from "../../../../functions/nameGroup";
+import PhotoUpload from "../../../PhotoUpload/PhotoUpload";
+import NewContact from '../../../NewContact/NewContact'
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { GrUser } from "react-icons/gr";
 

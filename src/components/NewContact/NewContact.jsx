@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './newContact.module.css'
-import useAuth from '../Authentification/useAuth';
+import useAuth from '../../Authentification/useAuth';
 import { useParams } from 'react-router-dom';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;

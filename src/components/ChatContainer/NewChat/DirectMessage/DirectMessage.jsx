@@ -4,7 +4,7 @@ import axios from "axios";
 const backendURL = import.meta.env.VITE_SERVER_URL;
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { GrGroup } from "react-icons/gr";
-import NewContact from "./NewContact";
+import NewContact from "../../../NewContact/NewContact";
 
 function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, newContact, setNewContact}) {
     const [error, setError] = useState(null);

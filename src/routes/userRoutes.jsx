@@ -1,7 +1,7 @@
-import LogIn from "../components/LoginForm";
-import UserProfile from "../components/UserProfile";
-import SignUp from '../components/SignUpForm';
-import SignOut from "../components/SignOut";
+import LogIn from "../components/LogIn/LoginForm";
+import UserProfile from "../components/UserProfile/UserProfile";
+import SignUp from '../components/SignUp/SignUpForm';
+import SignOut from "../components/SignOut/SignOut";
 
 const userRoutes = [
     {

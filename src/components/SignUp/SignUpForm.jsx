@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import '../global.css'
+import '../../global.css'
 import { useNavigate } from 'react-router-dom';
 import styles from './signup.module.css'
-import '../SignUpGlobalOverride.css'
-import useAuth from '../Authentification/useAuth';
+import '../../SignUpGlobalOverride.css'
+import useAuth from '../../Authentification/useAuth';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function SignUp() {

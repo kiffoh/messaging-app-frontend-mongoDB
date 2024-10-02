@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './chatContainer.module.css'
 import axios from 'axios';
-import DirectMessage from './DirectMessage';
-import DisplayedChat from './DisplayedChat';
-import GroupMessage from './GroupMessage';
+import DirectMessage from './NewChat/DirectMessage/DirectMessage';
+import DisplayedChat from './DisplayedChat/DisplayedChat';
+import GroupMessage from './NewChat/GroupMessage/GroupMessage';
 
 function ChatContainer({ user, displayedChat, setDisplayedChat, newChat, setNewChat, userChats, setDisplayedChatId, setUserChats, authorIdToPhotoURL }) {
     const [search, setSearch] = useState('')

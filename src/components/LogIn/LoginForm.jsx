@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import '../global.css'
+import '../../global.css'
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
 import styles from './login.module.css'
-import '../LogInGlobalOverride.css'
-import useAuth from '../Authentification/useAuth';
+import '../../LogInGlobalOverride.css'
+import useAuth from '../../Authentification/useAuth';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
 function LogIn() {

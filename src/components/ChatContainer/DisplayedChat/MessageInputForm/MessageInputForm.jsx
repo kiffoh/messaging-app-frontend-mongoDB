@@ -1,9 +1,9 @@
-import styles from './displayedChat.module.css'
+import styles from '../displayedChat.module.css'
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { MdAttachFile } from "react-icons/md";
 import { IoIosSend } from "react-icons/io";
-import { useSocket } from '../socketContext/useSocket';
+import { useSocket } from '../../../../socketContext/useSocket';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;
 

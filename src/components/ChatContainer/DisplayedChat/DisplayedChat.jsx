@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import styles from './displayedChat.module.css'
-import MessageInputForm from './MessageInputForm';
-import Messages from './Messages';
-import ProfileHeader from './ProfileHeader';
+import MessageInputForm from './MessageInputForm/MessageInputForm';
+import Messages from './Messages/Messages';
+import ProfileHeader from './ProfileHeader/ProfileHeader';
 
 
 function DisplayedChat({displayedChat, user, authorIdToPhotoURL, setDisplayedChat}) {

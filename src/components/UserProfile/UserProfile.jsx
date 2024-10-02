@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import NavBar from './navbar';
+import NavBar from '../NavBar/NavBar';
 import styles from './userprofile.module.css'
-import useAuth from '../Authentification/useAuth';
+import useAuth from '../../Authentification/useAuth';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import nameGroup from '../functions/nameGroup';
+import nameGroup from '../../functions/nameGroup';
 import { useNavigate } from 'react-router-dom';
-import PhotoUpload from './PhotoUpload';
+import PhotoUpload from '../PhotoUpload/PhotoUpload';
 import { string } from 'prop-types';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 const editLogo = import.meta.env.VITE_EDIT_LOGO;

@@ -9,11 +9,10 @@ import { useSocket } from '../../../../socketContext/useSocket';
 import formatDateTime from '../../../../functions/formatTimeDate';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;
+const defaultPic = import.meta.env.DEFAULT_PICTURE;
 
-
-function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat }) {
+function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, setAuthorIdToPhotoURL, setError }) {
   const socket = useSocket();
-  const [error, setError] = useState(false);
   const [userClick, setUserClick] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const chatBodyRef = useRef(null); // Ref for the chat-body container
@@ -24,6 +23,7 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
 
   useEffect(() => {
     console.log(displayedChat)
+    console.log(authorIdToPhotoURL)
   }, [displayedChat])
 
   const handleUserMessageClick = (event, message) => {
@@ -127,6 +127,20 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
       setEnlargeImage(url);
     };
 
+    // Creates authorIdToPhotoURL in the instance where the messages request returns an empty object from the server (AKA on SIGNUP)
+    // Edge case which cause the user image src to be null
+    useEffect(() => {
+      console.log('This is being ran')
+      if (Object.keys(authorIdToPhotoURL).length === 0) {
+        console.log('Stage 2')
+        const idToPhoto = {}
+        displayedChat.members.map(member => idToPhoto[member.id] = member.photo != null ? member.photo : defaultPic)
+        setAuthorIdToPhotoURL(idToPhoto);
+        console.log(idToPhoto)
+      }
+
+    }, [displayedChat])
+
   return (
     <>
     
@@ -135,7 +149,6 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat })
         <div className={styles['enlarged-image-container']} onClick={() => setEnlargeImage(null)}>
           <img src={enlargeImage} className={styles['enlarged-image']}></img>
         </div>}
-        {error && <h3>{error}</h3>}
         {userClick && (
           <div
             className={`${styles['update-delete-container']} ${

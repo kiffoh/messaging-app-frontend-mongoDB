@@ -2,7 +2,7 @@ import styles from '../displayedChat.module.css'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function ProfileHeader({displayedChat, user}) {
+function ProfileHeader({displayedChat, user, setError}) {
     const [profileInformation, setProfileInformation] = useState('select for contact info');
     const [fadeOut, setFadeOut] = useState(false); // Added state for fading
 

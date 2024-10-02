@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './newContact.module.css'
 import useAuth from '../../Authentification/useAuth';
-import { useParams } from 'react-router-dom';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;
 
@@ -31,7 +30,7 @@ function NewContact({setNewChat, setNewContact, user}) {
                     ...user,
                     selected: false
                 }))
-                console.log(filteredUsernamesWithSelection)
+                
                 setAllUsernames(filteredUsernamesWithSelection); // Does not include current username for UI reasons        
                 setFilteredUsernames(filteredUsernamesWithSelection);
             } catch (err) {
@@ -136,7 +135,7 @@ function NewContact({setNewChat, setNewContact, user}) {
                         </div>
                     )))}
                 </div>
-                {error && <p className={styles.error}>{error}</p>}
+                {error && <h3 className={styles['error']}>{error}</h3>}
                 <div>
                     <button onClick={handleAddContacts} className={styles['add-contacts-btn']}>Add Contacts</button>
                 </div>

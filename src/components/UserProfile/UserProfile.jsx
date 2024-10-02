@@ -253,7 +253,7 @@ function UserProfile({group}) {
             <div className={styles['userprofile-body']}>
                 <div className={styles['userprofile-flexbox']}>
                     <h2>{group ? 'Group' : 'User'} Profile</h2>
-                    {error && <h3>{error}</h3>}
+                    {error && <h3 className={styles['error']}>{error}</h3>}
                     {chatData && 
                     <div className={styles['profile-container']}>
                         <div className={styles['user-photo-container']}>

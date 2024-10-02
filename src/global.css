@@ -109,4 +109,6 @@ img {
   user-select: none;
 }
 
-
+.error {
+  color: rgba(255, 0, 0, 0.58);
+}

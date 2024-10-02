@@ -53,11 +53,11 @@ function App() {
         setAuthorIdToPhotoURL(idToPhoto);
       }
     }
-  }, [userChats, displayedChatId]);
+  }, [userChats, displayedChatId, displayedChat]);
 
   useEffect(() => {
     async function updateUser() {
-      if (!user || !user.id) return; // Check if user and user.id are available
+      if (!user || !user.id) return;
 
       try {
         const response = await axios.get(`${backendURL}/users/${user.id}/profile`);
@@ -94,7 +94,7 @@ function App() {
         <div className={styles['chat-bar']}>
           <div className={styles['chat-title-container']}>
             <h2 className={styles['chat-title']}>Chats</h2>
-            {error && <h3>{error}</h3>}
+            {error && <h3 className={styles['error']}>{error}</h3>}
             <button onClick={() => setNewChat(true)} className={styles['new-chat-btn']}>
               <RiChatNewLine size={24}/>
             </button>
@@ -129,6 +129,7 @@ function App() {
             setDisplayedChatId={setDisplayedChatId}
             setUserChats={setUserChats}
             authorIdToPhotoURL={authorIdToPhotoURL}
+            setAuthorIdToPhotoURL={setAuthorIdToPhotoURL}
           />
         </div>
       </div>

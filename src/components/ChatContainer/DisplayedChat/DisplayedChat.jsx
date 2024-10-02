@@ -5,7 +5,7 @@ import Messages from './Messages/Messages';
 import ProfileHeader from './ProfileHeader/ProfileHeader';
 
 
-function DisplayedChat({displayedChat, user, authorIdToPhotoURL, setDisplayedChat}) {
+function DisplayedChat({displayedChat, user, authorIdToPhotoURL, setDisplayedChat, setAuthorIdToPhotoURL}) {
     
     const [error, setError] = useState(null);
 
@@ -20,9 +20,9 @@ function DisplayedChat({displayedChat, user, authorIdToPhotoURL, setDisplayedCha
 
     return (
         <div className={styles['chat-root']}>
-            <ProfileHeader displayedChat={displayedChat} user={user} />
-            <Messages displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL} setDisplayedChat={setDisplayedChat}/>
-            {error && <h3>{error}</h3>}
+            <ProfileHeader displayedChat={displayedChat} user={user} setError={setError}/>
+            <Messages displayedChat={displayedChat} user={user} authorIdToPhotoURL={authorIdToPhotoURL} setDisplayedChat={setDisplayedChat} setAuthorIdToPhotoURL={setAuthorIdToPhotoURL} setError={setError}/>
+            {error && <h3 className={styles['error']}>{error}</h3>}
             <MessageInputForm displayedChat={displayedChat} user={user} setError={setError} setDisplayedChat={setDisplayedChat}/>
         </div>
     )

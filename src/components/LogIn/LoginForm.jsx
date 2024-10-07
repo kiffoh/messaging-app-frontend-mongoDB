@@ -36,7 +36,7 @@ function LogIn() {
             })
 
             if (response.status === 200) {
-                const data = await response.json();
+                const data = await response.data;
                 const token = data.token;
 
                 // Store in local storage
@@ -50,6 +50,7 @@ function LogIn() {
             if (err.response && err.response.status === 400) {
                 setError('Invalid username or password.');
             } else {
+                console.log(err)
                 setError('Log in failed. Please try again.');
             }    
         }

@@ -12,7 +12,7 @@ const messageIconRight = import.meta.VITE_MESSAGE_ICON_RIGHT;
 function SignUp() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState({});
     const {user} = useAuth();
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ function SignUp() {
         event.preventDefault();
 
         if ( !username.trim() || !password.trim()) {
-            setError('Username and password are required.');
+            setErrors({ general: 'Username and password are required.' });
             return;
         }
 
@@ -49,9 +49,37 @@ function SignUp() {
                 // Navigate to the page where user can input bio, pic and ect.
                 navigate(`/users/${userId}/profile`);
             }
-        } catch (err) {
-            console.log(err);
-            setError('Sign Up failed. Please try again.')
+        } catch (error) {
+            if (error.response) {
+                // Handle validation errors (status 400)
+                if (error.response.status === 400) {
+                    const validationErrors = error.response.data.errors;
+                    if (validationErrors) {
+                        // Convert array of errors to object keyed by field name
+                        const errorObject = validationErrors.reduce((acc, curr) => ({
+                            ...acc,
+                            [curr.field]: curr.message
+                        }), {});
+                        setErrors(errorObject);
+                    }
+                }
+                // Handle username already exists (status 409)
+                else if (error.response.status === 409) {
+                    setErrors({
+                        username: error.response.data.message
+                    });
+                }
+                // Handle other server errors
+                else {
+                    setErrors({
+                        general: error.response.data.message || 'An error occurred during signup'
+                    });
+                }
+            } else {
+                setErrors({
+                    general: 'Unable to connect to the server'
+                });
+            }
         }
     }
     
@@ -66,7 +94,7 @@ function SignUp() {
                         </div>
                         <div className={styles['input-div-container']}>
                             <div className={styles['input-div']}>
-                                {error && <h3 className={styles['error']}>{error}</h3>}
+                                {errors.general && <h3 className={styles['error']}>{errors.general}</h3>}
                                 <div className={styles['username']}>
                                     <label className={styles['username-label']}
                                         htmlFor='username'
@@ -80,6 +108,7 @@ function SignUp() {
                                         value={username}
                                         onChange={e => setUsername(e.target.value)}
                                     />
+                                    {errors.username && <div className={styles['error']}>{errors.username}</div>}
                                 </div>
                                 <div className={styles['password']}>
                                     <label className={styles['password-label']}

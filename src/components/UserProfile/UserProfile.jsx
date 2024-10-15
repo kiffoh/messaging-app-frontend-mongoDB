@@ -14,20 +14,16 @@ const editLogo = import.meta.env.VITE_EDIT_LOGO;
 
 function UserProfile({group}) {
     // I want to import the navbar and footer I use from the Homepage into here
-    const {user, setUser} = useAuth();
-    const [localAuthLoading, setLocalAuthLoading] = useState(true);
+    const {user, setUser, checkTokenValidity} = useAuth();
     const {userId} = useParams();
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user) {
-            setLocalAuthLoading(false);
-        } else if (!localAuthLoading && !user) {
-            navigate('/users/login');
-        }    
-    }, [user, localAuthLoading, navigate]);
+        const validToken = checkTokenValidity()
+        if (!validToken) navigate('/users/login')
+      }, [])
 
     const [chatData, setChatData] = useState(null);
     const [combinedGroupName, setCombinedGroupName] = useState('')
@@ -281,12 +277,12 @@ function UserProfile({group}) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setErrors({})
-        }, 2000)
+        }, 3000)
 
         return () => clearTimeout(timer); // Clean up timer on unmount
     }, [errors])
 
-    if (localAuthLoading || loading) {
+    if (loading) {
         return <h1>Loading...</h1>;
     }
 

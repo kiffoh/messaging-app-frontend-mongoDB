@@ -4,17 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function UserLayout() {
-  const {user} = useAuth();
+  const {user, checkTokenValidity} = useAuth();
   const [userLoading, setUserLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      setUserLoading(false);
-  } else if (!userLoading && !user) {
-      navigate('/users/login');
-  }  
-  }, [user, userLoading, navigate])
+    const validToken = checkTokenValidity()
+    if (!validToken) navigate('/users/login')
+  }, [])
 
   return (
     <div style={{width:'100%', height:'100vh', backgroundColor: 'var(--default-colour-light)'}}>

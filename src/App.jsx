@@ -23,15 +23,15 @@ function App() {
   useEffect(() => {
     async function fetchUserMessages() {
       try {
-        const response = await fetch(`${backendURL}/messages/${user.id}`);
+        const response = await axios.get(`${backendURL}/messages/${user.id}`);
 
-        if (response.ok) {
-          const data = await response.json()
+        if (response.status === 200) {
+          const data = response.data
           setUserChats(data);
         } else {
           setError("An error occurred when fetching the user's messages.")
         }
-      } catch (err) {
+      } catch (error) {
         setError('An unknown error occurred.')
       } finally {
         setLoading(false);
@@ -65,7 +65,7 @@ function App() {
           const updatedUser = response.data;
           setUser(updatedUser);
         }
-      } catch (err) {
+      } catch (error) {
           setError('An error occurred when updating the user.')
       }
     }

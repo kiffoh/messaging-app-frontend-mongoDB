@@ -7,7 +7,6 @@ import axios from 'axios';
 import nameGroup from '../../functions/nameGroup';
 import { useNavigate } from 'react-router-dom';
 import PhotoUpload from '../PhotoUpload/PhotoUpload';
-import { string } from 'prop-types';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 const editLogo = import.meta.env.VITE_EDIT_LOGO;
 
@@ -16,10 +15,19 @@ const editLogo = import.meta.env.VITE_EDIT_LOGO;
 function UserProfile({group}) {
     // I want to import the navbar and footer I use from the Homepage into here
     const {user, setUser} = useAuth();
+    const [localAuthLoading, setLocalAuthLoading] = useState(true);
     const {userId} = useParams();
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            setLocalAuthLoading(false);
+        } else if (!localAuthLoading && !user) {
+            navigate('/users/login');
+        }    
+    }, [user, localAuthLoading, navigate]);
 
     const [chatData, setChatData] = useState(null);
     const [combinedGroupName, setCombinedGroupName] = useState('')
@@ -41,11 +49,11 @@ function UserProfile({group}) {
             try {
                 const response = await axios.get(`${backendURL}/users/usernames`);
         
-                if (response.status != 200) return setError('An error occurred when trying to fetch all usernames.');
+                if (response.status != 200) return setErrors({usernameRetrieval:'An error occurred when trying to fetch all usernames.'});
                 
                 setAllUsernames(response.data.filter(user => user.id !== parseInt(userId))); // Does not include current username for UI reasons        
-            } catch (err) {
-                return setError('An unknown error occurred when trying to fetch all usernames.')
+            } catch (error) {
+                return setErrors({usernameRetrieval: 'An unknown error occurred when trying to fetch all usernames.'})
             } finally {
                 setUsernamesLoading(false);
             }
@@ -94,7 +102,7 @@ function UserProfile({group}) {
                 try {
                     const response = await axios.get(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`);
                     
-                    if (response.status != 200) return setError('An error occurred when fetching the profile.') 
+                    if (response.status != 200) return setErrors({general: 'An error occurred when fetching the profile.'}) 
                     
                     setChatData(response.data)
                     
@@ -108,7 +116,7 @@ function UserProfile({group}) {
                         setCombinedGroupName(nameGroup(response.data.members))
                     }
                 } catch (error) {
-                    setError('An unknown error occurred')
+                    setErrors({general: 'An unknown error occurred'})
                     console.error('Error fetching data:', error);
                 } finally {
                     setLoading(false)
@@ -149,19 +157,20 @@ function UserProfile({group}) {
     }
 
     async function saveEdit() {
-        setError(null);  // Clear previous error messages
+        // Clear previous error messages
+        setErrors(prevErrors => ({ ...prevErrors, updateErrors: null }));  
 
         try {
             let data = {};
             
             if (editUsername) {
-                if (username === undefined || username.trim() === "") return setError("Username cannot be empty.");
+                if (username === undefined || username.trim() === "") return setErrors(prevErrors => ({...prevErrors, updateErrors: {username: "Username cannot be empty."}}));
                 const currentName = group ? chatData.name : chatData.username;
                 if (currentName !== username ) {
 
                     const usernameTaken = filteredUsernames.some((user) => user.username === username);
 
-                    if (usernameTaken) return setError('Username is taken.');
+                    if (usernameTaken) return setErrors(prevErrors => ({...prevErrors, updateErrors: {username: 'Username is taken.'}}));
 
                     data.username = username;
                     group ? setChatData(current => ({ ...current, name: username })) : setChatData(current => ({ ...current, username: username }));
@@ -169,7 +178,7 @@ function UserProfile({group}) {
             }
 
             if (editProfilePic) {
-                if (profilePic === "") return setError("Profile picture cannot be empty.");
+                if (profilePic === "") return setErrors(prevErrors => ({...prevErrors, updateErrors: {photo: "Profile picture cannot be empty."}}));
                 if (chatData.photo !== profilePic) {
                     data.photo = profilePic;
                     setChatData(current => ({ ...current, photo: profilePic }));
@@ -177,14 +186,14 @@ function UserProfile({group}) {
             }
 
             if (editBio) {
-                if (bio.trim() === "") return setError("Bio cannot be empty.");
+                if (bio.trim() === "") return setErrors(prevErrors => ({...prevErrors, updateErrors: {bio: "Bio cannot be empty."}}));
                 if (chatData.bio !== bio) {
                     data.bio = bio;
                     setChatData(current => ({ ...current, bio: bio }));
                 }
             }
 
-            
+            // If there's no data to send, then the put request will not be sent
             if (Object.keys(data).length != 0) {
                 console.log(data)
                 const response = await axios.put(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`, data, {
@@ -193,33 +202,65 @@ function UserProfile({group}) {
                     }
                 });
                 
-                if (response.status != 200) return setError('An error occurred when trying to update the profile.');
+                if (response.status === 200) {
+                    setChatData(response.data)
+                    if (!group) setUser(response.data);
                     
-                setChatData(response.data)
-                if (!group) setUser(response.data);
-                
-                setProfilePic(response.data.photo);
-                currentProfilePic.current = response.data.photo;
-                setUsername(response.data.username);
-                setName(response.data.name || response.data.username);
-                setBio(response.data.bio);
-    
-                if (group) {
-                    setCombinedGroupName(nameGroup(response.data.members))
+                    setProfilePic(response.data.photo);
+                    currentProfilePic.current = response.data.photo;
+                    setUsername(response.data.username);
+                    setName(response.data.name || response.data.username);
+                    setBio(response.data.bio);
+        
+                    if (group) {
+                        setCombinedGroupName(nameGroup(response.data.members))
+                    }
                 }
+                    
             }
 
             // Reset all edit flags after processing
             setEditProfilePic(false);
             setEditBio(false);
             setEditUsername(false);
-        } catch (err) {
-            console.log(err)
-            setError('An unknown error occurred when trying to update the profile.')
+        } catch (error) {
+            // Add validation errors here?
+            console.log("Error: ", error)
+            if (error.response) {
+                // Handle validation errors (status 400)
+                if (error.response.status === 400) {
+                    const validationErrors = error.response.data.errors;
+                    if (validationErrors) {
+                        // Convert array of errors to object keyed by field name
+                        const errorObject = validationErrors.reduce((acc, curr) => ({
+                            ...acc,
+                            updateErrors: {[curr.field]: curr.message}
+                        }), {});
+                        setErrors(errorObject);
+                    }
+                }
+                // Handle username already exists (status 409)
+                else if (error.response.status === 409) {
+                    setErrors(prevErrors => (
+                        {...prevErrors,
+                        updateErrors: {username: error.response.data.message}
+                    }));
+                }
+                // Handle other server errors
+                else {
+                    setErrors({
+                        general: error.response.data.message || 'An error occurred during when updating the profile'
+                    });
+                }
+            } else {
+                setErrors({
+                    general: 'Unable to connect to the server'
+                });
+            }
         }
     }
 
-    async function deleteProfile() {
+    async function deleteProfile() { // Why is ESlint telling me: deleteProfile' is declared but its value is never read?
         if (!window.confirm(`Are you sure you want to delete this ${group ? 'group' : 'profile'}?`)) {
             return;
         }
@@ -228,24 +269,27 @@ function UserProfile({group}) {
             const response = await axios.delete(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`, {
                 headers: {'user-id': user.id }
             })
-            if (response.status != 200) return setError('An error occurred when trying to delete the profile.');
+            if (response.status != 200) return setErrors({general: 'An error occurred when trying to delete the profile.'});
         
             navigate("/")
-        } catch (err) {
-            setError('An unknown error occurred when trying to delete the profile.')
+        } catch (error) {
+            setErrors({general: 'An unknown error occurred when trying to delete the profile.'})
         }
         
     }
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setError(false)
+            setErrors({})
         }, 2000)
 
         return () => clearTimeout(timer); // Clean up timer on unmount
-    }, [error])
+    }, [errors])
 
-    if (loading) return <h1>Fetching profile data...</h1>
+    if (localAuthLoading || loading) {
+        return <h1>Loading...</h1>;
+    }
+
 
     return (
         <div className={styles['user-profile-root']}>
@@ -253,8 +297,9 @@ function UserProfile({group}) {
             <div className={styles['userprofile-body']}>
                 <div className={styles['userprofile-flexbox']}>
                     <h2>{group ? 'Group' : 'User'} Profile</h2>
-                    {error && <h3 className={styles['error']}>{error}</h3>}
-                    {chatData && 
+                    {errors.general && <h3 className={styles['error']}>{errors.general}</h3>}
+                    {errors.updateErrors?.photo && <h3 className={styles['error']}>{errors.updateErrors.photo}</h3>}
+                    {chatData &&
                     <div className={styles['profile-container']}>
                         <div className={styles['user-photo-container']}>
                             {editProfilePic ? (
@@ -278,6 +323,7 @@ function UserProfile({group}) {
                         </div>
 
                         <div className={styles['username-container']}>
+                            {errors.updateErrors?.username && <h3 className={styles['error']}>{errors.updateErrors.username}</h3>}
                             {editUsername ? 
                                 <>
                                     <input 
@@ -288,6 +334,7 @@ function UserProfile({group}) {
                                         placeholder={name}
                                     />
                                     <div className={styles['username-search']}>
+                                        {errors.usernameRetrieval && <h3 className={styles['error']}>{errors.usernameRetrieval}</h3>}
                                         {!group && usernamesLoading ? (
                                             <p className={styles['username-loading']}>Loading usernames...</p>
                                         ) : (
@@ -325,6 +372,7 @@ function UserProfile({group}) {
                         )}
 
                         <div className={styles['bio-container']}>
+                        {errors.updateErrors?.bio && <h3 className={styles['error']}>{errors.updateErrors.bio}</h3>}
                             {editBio ? (
                             <textarea 
                                 type='text'

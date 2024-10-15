@@ -162,3 +162,7 @@
     overflow: overlay;
     height: 100%;
   }
+
+.error {
+    color: var(--error-red-colour);
+}

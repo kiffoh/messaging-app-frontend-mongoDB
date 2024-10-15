@@ -13,7 +13,7 @@
   --default-colour-pink: rgba(220,147,231,255);
   --default-colour-blue: rgba(88,144,213,255);
   --default-colour-soft-blue: rgba(88, 144, 255, 0.5);
-
+  --error-red-colour: rgba(255, 0, 0, 0.58);
 
   background-color: var(--default-colour-light-2);
 }
@@ -110,5 +110,5 @@ img {
 }
 
 .error {
-  color: rgba(255, 0, 0, 0.58);
+  color: var(--error-red-colour);
 }

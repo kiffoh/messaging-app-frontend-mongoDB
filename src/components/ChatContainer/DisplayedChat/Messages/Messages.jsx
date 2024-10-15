@@ -11,9 +11,8 @@ import formatDateTime from '../../../../functions/formatTimeDate';
 const backendURL = import.meta.env.VITE_SERVER_URL;
 const defaultPic = import.meta.env.DEFAULT_PICTURE;
 
-function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, setAuthorIdToPhotoURL, setError }) {
+function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, setAuthorIdToPhotoURL, setError, setUserClick, userClick }) {
   const socket = useSocket();
-  const [userClick, setUserClick] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const chatBodyRef = useRef(null); // Ref for the chat-body container
 

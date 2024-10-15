@@ -85,10 +85,14 @@ function App() {
     }
   }, [displayedChat, displayedChatId]);  
 
+  // Tracks where the user has clicked in the Messages component (State for when to display the buttons to update/delete a message)
+  // Abstracted to the App component so state can be set to false in instances greater than the Messages component
+  const [userClick, setUserClick] = useState(false);
+
   if (loading) return <h1>Loading... </h1>
 
   return (
-    <div className={styles['app-root']}>
+    <div className={styles['app-root']} onClick={() => setUserClick(false)}>
       <NavBar />
       <div className={styles['app-body']}>
         <div className={styles['chat-bar']}>
@@ -130,6 +134,8 @@ function App() {
             setUserChats={setUserChats}
             authorIdToPhotoURL={authorIdToPhotoURL}
             setAuthorIdToPhotoURL={setAuthorIdToPhotoURL}
+            userClick={userClick}
+            setUserClick={setUserClick}
           />
         </div>
       </div>

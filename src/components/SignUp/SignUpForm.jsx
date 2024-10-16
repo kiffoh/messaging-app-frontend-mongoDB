@@ -91,10 +91,10 @@ function SignUp() {
                     <form onSubmit={handleFormSubmit}>
                         <div className={styles['title-div']}>
                             <h1 className={styles.title}>Sign Up</h1>
+                            <h3 className={`${styles['error']} ${styles['general']} ${errors.general ? styles['show'] : ''}`}>{errors.general ? errors.general : ''}</h3>
                         </div>
                         <div className={styles['input-div-container']}>
                             <div className={styles['input-div']}>
-                                {errors.general && <h3 className={styles['error']}>{errors.general}</h3>}
                                 <div className={styles['username']}>
                                     <label className={styles['username-label']}
                                         htmlFor='username'
@@ -107,13 +107,12 @@ function SignUp() {
                                         placeholder='Username'
                                         value={username}
                                         onChange={e => setUsername(e.target.value)}
-                                    />
-                                    {errors.username && <div className={styles['error']}>{errors.username}</div>}
+                                        />
                                 </div>
                                 <div className={styles['password']}>
                                     <label className={styles['password-label']}
                                         htmlFor='password'
-                                    >
+                                        >
                                         Password
                                     </label>
                                     <input
@@ -122,11 +121,12 @@ function SignUp() {
                                         placeholder='*********'
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
-                                    />
+                                        />
                                 </div>
                             </div>
                         </div>
                         <div className={styles['btn-container']}>
+                            <div className={`${styles['error']} ${styles['username']} ${errors.username ? styles['show'] : ''}`}>{errors.username ? errors.username : ''}</div>
                             <button type='submit' className={styles['signup-btn']}>Create Account</button>
                         </div>
                     </form>

@@ -50,6 +50,7 @@
     width: 9em;
     border: 2px solid var(--default-colour-soft-purple);
     box-sizing: unset;
+    z-index: 1;
     /*
     display: flex;
     gap: 1em;

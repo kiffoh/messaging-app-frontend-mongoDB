@@ -163,6 +163,24 @@
     height: 100%;
   }
 
-.error {
+  .error {
     color: var(--error-red-colour);
-}
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    transform: translateY(-10px);
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .error.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .error.username {
+    padding-top: 1em;
+  }
+
+  .error.photo {
+    padding: 1em 0 1em 0;
+  }

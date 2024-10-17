@@ -64,8 +64,10 @@ function LogIn() {
     <>
         <div className={styles['login-body']}>
             <div className={styles["login-form-container"]}>
-                <h1 className={styles.title}>Log In</h1>
-                {error && <h3 className={styles['error']}>{error}</h3>}
+                <div className={styles['title-div']}>
+                    <h1 className={styles.title}>Log In</h1>
+                    <p className={`${styles['error']} ${styles['log-in']} ${error ? styles['show'] : ''}`}>{error ? error : ' '}</p>
+                </div>
                 <form onSubmit={handleFormSubmit}>
                     <input 
                         type='text'

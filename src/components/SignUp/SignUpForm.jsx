@@ -91,7 +91,7 @@ function SignUp() {
                     <form onSubmit={handleFormSubmit}>
                         <div className={styles['title-div']}>
                             <h1 className={styles.title}>Sign Up</h1>
-                            <h3 className={`${styles['error']} ${styles['general']} ${errors.general ? styles['show'] : ''}`}>{errors.general ? errors.general : ''}</h3>
+                            <p className={`${styles['error']} ${styles['general']} ${errors.general ? styles['show'] : ''}`}>{errors.general ? errors.general : ''}</p>
                         </div>
                         <div className={styles['input-div-container']}>
                             <div className={styles['input-div']}>
@@ -126,7 +126,7 @@ function SignUp() {
                             </div>
                         </div>
                         <div className={styles['btn-container']}>
-                            <div className={`${styles['error']} ${styles['username']} ${errors.username ? styles['show'] : ''}`}>{errors.username ? errors.username : ''}</div>
+                            <p className={`${styles['error']} ${styles['username']} ${errors.username ? styles['show'] : ''}`}>{errors.username ? errors.username : ''}</p>
                             <button type='submit' className={styles['signup-btn']}>Create Account</button>
                         </div>
                     </form>

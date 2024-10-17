@@ -293,8 +293,7 @@ function UserProfile({group}) {
             <div className={styles['userprofile-body']}>
                 <div className={styles['userprofile-flexbox']}>
                     <h2>{group ? 'Group' : 'User'} Profile</h2>
-                    {errors.general && <h3 className={styles['error']}>{errors.general}</h3>}
-                    {errors.updateErrors?.photo && <h3 className={styles['error']}>{errors.updateErrors.photo}</h3>}
+                    <p className={`${styles['error']} ${styles['photo']} ${errors.updateErrors?.photo ? styles['show'] : ''} ${errors.general ? styles['show'] : ''}`}>{errors.updateErrors?.photo ? errors.updateErrors.photo : ''}{errors.general ? errors.general : ''}</p>
                     {chatData &&
                     <div className={styles['profile-container']}>
                         <div className={styles['user-photo-container']}>
@@ -319,7 +318,7 @@ function UserProfile({group}) {
                         </div>
 
                         <div className={styles['username-container']}>
-                            {errors.updateErrors?.username && <h3 className={styles['error']}>{errors.updateErrors.username}</h3>}
+                            <p className={`${styles['error']} ${styles['username']} ${errors.updateErrors?.username ? styles['show'] : ''}`}>{errors.updateErrors?.username ? errors.updateErrors.username : ''}</p>
                             {editUsername ? 
                                 <>
                                     <input 
@@ -368,7 +367,7 @@ function UserProfile({group}) {
                         )}
 
                         <div className={styles['bio-container']}>
-                        {errors.updateErrors?.bio && <h3 className={styles['error']}>{errors.updateErrors.bio}</h3>}
+                            <p className={`${styles['error']} ${styles['bio']} ${errors.updateErrors?.bio ? styles['show'] : ''}`}>{errors.updateErrors?.bio ? errors.updateErrors.bio : ''}</p>
                             {editBio ? (
                             <textarea 
                                 type='text'

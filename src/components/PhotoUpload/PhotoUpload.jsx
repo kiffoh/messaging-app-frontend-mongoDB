@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { FaCamera } from 'react-icons/fa'; // Importing a camera icon (FontAwesome)
-import styles from '../UserProfile/userProfile.module.css'
+import styles from '../UserProfile/userprofile.module.css'
 
 const PhotoUpload = ({file, setFile, className}) => {
     const fileInputRef = useRef(null);

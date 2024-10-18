@@ -52,3 +52,17 @@
     justify-content: center;
     background-color: var(--default-colour-light-2);
   }
+
+  .error.log-in {
+    margin: 0;
+    font-weight: bold;
+    position: absolute;
+    top: 125%;
+    left: 50%;
+    transform: translate(-50%);
+    width: max-content;
+  }
+
+  .title-div {
+    position: relative;
+  }

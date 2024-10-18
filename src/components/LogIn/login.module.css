@@ -39,7 +39,7 @@
   }
 
   .login-body {
-    background-image: url('../assets/LogIn/messagingIcon.jpg');
+    background-image: url('../../../public/LogIn/messagingIcon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto;

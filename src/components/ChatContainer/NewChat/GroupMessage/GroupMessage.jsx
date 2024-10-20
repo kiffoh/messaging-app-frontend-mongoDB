@@ -109,6 +109,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
             }
         } catch (err) {
             if (err.response && err.response.status === 400) {
+                console.log(err.response)
                 setError(err.message);
             } else {
                 console.log(err)

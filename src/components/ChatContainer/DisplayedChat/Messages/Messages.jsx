@@ -7,6 +7,7 @@ import { RxUpdate } from "react-icons/rx";
 import { MdOutlineCancel } from "react-icons/md";
 import { useSocket } from '../../../../socketContext/useSocket';
 import formatDateTime from '../../../../functions/formatTimeDate';
+import { useNavigate } from 'react-router-dom';
 
 const backendURL = import.meta.env.VITE_SERVER_URL;
 const defaultPic = import.meta.env.DEFAULT_PICTURE;
@@ -19,11 +20,13 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, s
   const clickedMessage = useRef(null);
   const [editMsg, setEditMsg] = useState(false);
   const [updatedMessage, setUpdatedMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(displayedChat)
     console.log(authorIdToPhotoURL)
-  }, [displayedChat])
+  }, [displayedChat, authorIdToPhotoURL])
+
 
   const handleUserMessageClick = (event, message) => {
     event.stopPropagation(); // Stop click from propagating to parent
@@ -145,10 +148,12 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, s
     
       <div className={styles['chat-body']} ref={chatBodyRef} onClick={() => setUserClick(false)}>
         {enlargeImage && 
+        // Container for when an image is clicked on
         <div className={styles['enlarged-image-container']} onClick={() => setEnlargeImage(null)}>
           <img src={enlargeImage} className={styles['enlarged-image']}></img>
         </div>}
         {userClick && (
+          // Container to display the update/delete functionality for a message
           <div
             className={`${styles['update-delete-container']} ${
               userClick ? styles['visible'] : styles['invisible']
@@ -172,7 +177,9 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, s
 
           return message.authorId === user.id ? (
             <div key={message.id} className={styles['user-chat-container']}>
-              {editMsg && message.id === clickedMessage.current?.id ? (
+              {editMsg && message.id === clickedMessage.current?.id ? 
+              (
+                // Code when message is being edited 
                 <form className={styles['update-message-form']} onSubmit={handleUpdateMessage}>
                   <button type='button' className={styles['cancel-message-btn']} onClick={() => setEditMsg(false)}>
                     <MdOutlineCancel size={24}/>
@@ -197,6 +204,7 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, s
                   </div>
                 </form>
               ) : (
+                // Code to display the messages
                 <div
                   className={styles['user-chat']}
                   onClick={(event) => handleUserMessageClick(event, message)}
@@ -221,6 +229,7 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, s
                   src={authorIdToPhotoURL[message.authorId]}
                   alt="user-photo"
                   className={styles['user-photo']}
+                  onClick={() => navigate(`/users/${message.authorId}/profile`)}
                 />
               </div>
             </div>
@@ -231,6 +240,7 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, s
                   src={authorIdToPhotoURL[message.authorId]}
                   alt="recipient-photo"
                   className={styles['recipient-photo']}
+                  onClick={() => navigate(`/users/${user.id}/profile`)}
                 />
               </div>
               <div className={styles['responder-chat']}>

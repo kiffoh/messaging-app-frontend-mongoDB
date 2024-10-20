@@ -168,12 +168,14 @@ transform: translateY(0);
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-60%);
+    transform: translateX(-50%);
 }
 
 .error.general-name{
     position: absolute;
     left: 50%;
     bottom: 100%;
-    transform: translateX(-60%);
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: min(max-content, 100%);
 }

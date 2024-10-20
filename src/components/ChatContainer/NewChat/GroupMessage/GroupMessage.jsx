@@ -149,7 +149,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                     Add group icon (optional)
                                 </label>
                                 <PhotoUpload file={file} setFile={setFile} className={styles['group-message']}/>
-                                <p className={`${styles['error']} ${styles['photo']} ${error ? styles['show'] : ''}`}>{error.photo ? error.photo : ''}</p>
+                                <p className={`${styles['error']} ${styles['photo']} ${error.photo ? styles['show'] : ''}`}>{error.photo ? error.photo : ''}</p>
                             </div>
                             <div className={styles['group-name-container']}>
                                 <label htmlFor="name" className={styles['group-name']}>
@@ -165,7 +165,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                 />
                             </div>
                             <div className={styles['btns-container']}>
-                                <p className={`${styles['error']} ${styles['general-name']} ${error ? styles['show'] : ''}`}>{error.general ? error.general : ''}{error.name ? error.name : ''}</p>
+                                <p className={`${styles['error']} ${styles['general-name']} ${error.general || error.name ? styles['show'] : ''}`}>{error.general ? error.general : ''}{error.name ? error.name : ''}</p>
                                 <button type="button" onClick={() => setNextStage(false)} className={styles['back-btn']}>Back</button>
                                 <button type="submit" className={styles['create-btn']}>Create</button>
                             </div>

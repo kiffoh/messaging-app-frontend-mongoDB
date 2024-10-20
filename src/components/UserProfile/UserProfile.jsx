@@ -323,7 +323,7 @@ function UserProfile({group}) {
                         </div>
 
                         <div className={styles['username-container']}>
-                            <p className={`${styles['error']} ${styles['username']} ${errors.updateErrors?.username ? styles['show'] : ''}`}>{errors.updateErrors?.username ? errors.updateErrors.username : ''}</p>
+                            <p className={`${styles['error']} ${styles['username']} ${errors.updateErrors?.username || errors.updateErrors?.name ? styles['show'] : ''}`}>{errors.updateErrors?.username ? errors.updateErrors.username : ''}{errors.updateErrors?.name ? errors.updateErrors.name : ''}</p>
                             {editUsername ? 
                                 <>
                                     <input 

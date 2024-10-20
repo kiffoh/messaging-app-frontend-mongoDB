@@ -19,7 +19,7 @@ function LogIn() {
         if (user) {
             navigate('/')
         }
-    })
+    }, [user, navigate])
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();

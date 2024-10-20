@@ -9,7 +9,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { GrUser } from "react-icons/gr";
 
 function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDisplayedChat, userChats, user, setDisplayedChatId, setUserChats, setNewGroup, handleContactSelection, contacts, newContact, setNewContact}) {
-    const [error, setError] = useState(false);
+    const [error, setErrors] = useState({});
     const [nextStage, setNextStage] = useState(false);
     const [name, setName] = useState('');
     const [file, setFile] = useState(null); // For file upload
@@ -40,7 +40,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setError(false)
+            setErrors({})
         }, 2000)
 
         return () => clearTimeout(timer); // Clean up timer on unmount
@@ -57,7 +57,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
             setSelectedContacts(tempSelectedContacts)
         } else {
             // A group requires at least 2 other members (not including the user)
-            setError(tempSelectedContacts.length === 0 ? 'A group requires at least 2 more contacts.': 'A group requires at least 1 more contact.')
+            setErrors({selection: tempSelectedContacts.length === 0 ? 'A group requires at least 2 more contacts.': 'A group requires at least 1 more contact.'})
             
         }
     }
@@ -69,8 +69,6 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
             const groupMembers = [user, ...selectedContacts];
             const groupName = name ? name : nameGroup(groupMembers);
             const existingChat = findUserChat(groupMembers, groupName);
-
-            console.log(existingChat);
             
             if (existingChat) {
                 setDisplayedChat(existingChat);
@@ -81,7 +79,9 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                 
                 // Add members & name
                 formData.append('members', JSON.stringify(groupMembers));
-                formData.append('name', groupName)
+                if (name) {
+                    formData.append('name', name)
+                }
     
                 // Conditionally add the group photo if provided
                 if (file) {
@@ -97,23 +97,29 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                 });
     
                 if (response.status === 200 || response.status === 201) {
-                    console.log('GOING THROUGH RESPONSE')
                     const data = response.data.newGroup || response.data.existingGroup;
                     
                     setDisplayedChat(data);
                     setDisplayedChatId(data.id);
                     setUserChats(prevChats => [data, ...prevChats]);
                 } else {
-                    setError('Failed to create the group.');
+                    setErrors({general: 'Failed to create the group.'});
                 } 
             }
         } catch (err) {
-            if (err.response && err.response.status === 400) {
-                console.log(err.response)
-                setError(err.message);
+            if (error.response.status === 400) {
+                const validationErrors = error.response.data.errors;
+                if (validationErrors) {
+                    // Convert array of errors to object keyed by field name
+                    const errorObject = validationErrors.reduce((acc, curr) => ({
+                        ...acc,
+                        [curr.field]: curr.message
+                    }), {});
+                    setErrors(errorObject);
+                }
             } else {
                 console.log(err)
-                setError('An error occurred when trying to create the group.')
+                setErrors({general: 'An error occurred when trying to create the group.'})
             }
         }
 
@@ -142,6 +148,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                     Add group icon (optional)
                                 </label>
                                 <PhotoUpload file={file} setFile={setFile} className={styles['group-message']}/>
+                                <p className={`${styles['error']} ${styles['photo']} ${error ? styles['show'] : ''}`}>{error.photo ? error.photo : 'photo'}</p>
                             </div>
                             <div className={styles['group-name-container']}>
                                 <label htmlFor="name" className={styles['group-name']}>
@@ -157,6 +164,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                 />
                             </div>
                             <div className={styles['btns-container']}>
+                                <p className={`${styles['error']} ${styles['general-name']} ${error ? styles['show'] : ''}`}>{error.general ? error.general : 'general'}{error.name ? error.name : ''}</p>
                                 <button type="button" onClick={() => setNextStage(false)} className={styles['back-btn']}>Back</button>
                                 <button type="submit" className={styles['create-btn']}>Create</button>
                             </div>
@@ -189,7 +197,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                     </div>
                                 )))}
                             </div>
-                            <p className={`${styles['error']} ${error ? styles['show'] : ''}`}>{error ? error : ''}</p>
+                            <p className={`${styles['error']} ${error ? styles['show'] : ''}`}>{error.selection ? error.selection : ''}</p>
                             <div className={styles['add-contact-btn-container']}>
                                 <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>
                                     <AiOutlineUserAdd size={24} />

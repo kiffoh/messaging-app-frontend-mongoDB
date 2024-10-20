@@ -27,7 +27,7 @@
 }
 
 .user-chat {
-    border-radius: 10% 10% 0 10% / 30% 30% 0 30%;
+    border-radius: 30px 30px 0;
     background-color: var(--default-colour-soft-green);
 }
 
@@ -40,7 +40,7 @@
 .responder-chat {
     background-color: var(--default-colour-soft-purple);
     color: whitesmoke;
-    border-radius: 10% 10% 10% 0 / 30% 30% 30% 0;
+    border-radius: 30px 30px 30px 0;
 }
 
 .chat-photo {

@@ -119,6 +119,8 @@
 .btns-container {
     display: flex;
     justify-content: space-between;
+    position: relative;
+    padding-top: 1em;
 }
 
 .group-name-container {
@@ -140,8 +142,38 @@
     justify-content: center;
     align-items: center;
     gap: 1em;
+    position: relative;
+    padding-bottom: 1em;
 }
 
 .cancel-btn, .next-btn {
     height: 100%;
+}
+
+.error {
+    color: var(--error-red-colour);
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    transform: translateY(-10px);
+    margin: 0;
+    font-weight: 600;
+}
+
+.error.show {
+opacity: 1;
+transform: translateY(0);
+}
+
+.error.photo {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-60%);
+}
+
+.error.general-name{
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-60%);
 }

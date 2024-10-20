@@ -95,20 +95,23 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                         'Content-Type': 'multipart/form-data' // Important for file uploads
                     }
                 });
-    
+                
                 if (response.status === 200 || response.status === 201) {
                     const data = response.data.newGroup || response.data.existingGroup;
                     
                     setDisplayedChat(data);
                     setDisplayedChatId(data.id);
                     setUserChats(prevChats => [data, ...prevChats]);
+
+                    setNewChat(false);
+                    setNextStage(false);
                 } else {
                     setErrors({general: 'Failed to create the group.'});
                 } 
             }
         } catch (err) {
-            if (error.response.status === 400) {
-                const validationErrors = error.response.data.errors;
+            if (err.response.status === 400) {
+                const validationErrors = err.response.data.errors;
                 if (validationErrors) {
                     // Convert array of errors to object keyed by field name
                     const errorObject = validationErrors.reduce((acc, curr) => ({
@@ -123,8 +126,6 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
             }
         }
 
-        setNewChat(false);
-        setNextStage(false);
     }
 
     return (
@@ -148,7 +149,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                     Add group icon (optional)
                                 </label>
                                 <PhotoUpload file={file} setFile={setFile} className={styles['group-message']}/>
-                                <p className={`${styles['error']} ${styles['photo']} ${error ? styles['show'] : ''}`}>{error.photo ? error.photo : 'photo'}</p>
+                                <p className={`${styles['error']} ${styles['photo']} ${error ? styles['show'] : ''}`}>{error.photo ? error.photo : ''}</p>
                             </div>
                             <div className={styles['group-name-container']}>
                                 <label htmlFor="name" className={styles['group-name']}>
@@ -164,7 +165,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                 />
                             </div>
                             <div className={styles['btns-container']}>
-                                <p className={`${styles['error']} ${styles['general-name']} ${error ? styles['show'] : ''}`}>{error.general ? error.general : 'general'}{error.name ? error.name : ''}</p>
+                                <p className={`${styles['error']} ${styles['general-name']} ${error ? styles['show'] : ''}`}>{error.general ? error.general : ''}{error.name ? error.name : ''}</p>
                                 <button type="button" onClick={() => setNextStage(false)} className={styles['back-btn']}>Back</button>
                                 <button type="submit" className={styles['create-btn']}>Create</button>
                             </div>

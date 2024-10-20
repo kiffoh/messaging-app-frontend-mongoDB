@@ -16,7 +16,7 @@ function DisplayedChat({displayedChat, user, authorIdToPhotoURL, setDisplayedCha
         }, 2000)
 
         return clearTimeout(timer)
-    }, error)
+    }, [error])
 
     return (
         <div className={styles['chat-root']}>

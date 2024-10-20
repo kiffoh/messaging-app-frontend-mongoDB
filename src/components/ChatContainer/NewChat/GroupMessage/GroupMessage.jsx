@@ -108,7 +108,12 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                 } 
             }
         } catch (err) {
-            setError('An error occurred when trying to create the group.')
+            if (err.response && err.response.status === 400) {
+                setError(err.message);
+            } else {
+                console.log(err)
+                setError('An error occurred when trying to create the group.')
+            }
         }
 
         setNewChat(false);
@@ -183,7 +188,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                                     </div>
                                 )))}
                             </div>
-                            {error && <h3 className={styles['error']}>{error}</h3>}
+                            <p className={`${styles['error']} ${error ? styles['show'] : ''}`}>{error ? error : ''}</p>
                             <div className={styles['add-contact-btn-container']}>
                                 <button type="button" className={styles['add-contact-btn']} onClick={() => setNewContact(true)}>
                                     <AiOutlineUserAdd size={24} />

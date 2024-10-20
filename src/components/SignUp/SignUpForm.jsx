@@ -6,8 +6,6 @@ import '../../SignUpGlobalOverride.css'
 import useAuth from '../../Authentification/useAuth';
 import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL;
-const messageIconLeft = import.meta.VITE_MESSAGE_ICON_LEFT;
-const messageIconRight = import.meta.VITE_MESSAGE_ICON_RIGHT;
 
 function SignUp() {
     const [username, setUsername] = useState('');

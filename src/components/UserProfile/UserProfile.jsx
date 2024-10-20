@@ -168,8 +168,13 @@ function UserProfile({group}) {
 
                     if (usernameTaken) return setErrors(prevErrors => ({...prevErrors, updateErrors: {username: 'Username is taken.'}}));
 
-                    data.username = username;
-                    group ? setChatData(current => ({ ...current, name: username })) : setChatData(current => ({ ...current, username: username }));
+                    if (group) {
+                        data.name = username;
+                        setChatData(current => ({ ...current, name: username }));
+                    } else {
+                        data.username = username;
+                        setChatData(current => ({ ...current, username: username }));
+                    }
                 }
             }
 

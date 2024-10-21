@@ -240,7 +240,7 @@ function Messages({ displayedChat, authorIdToPhotoURL, user, setDisplayedChat, s
                   src={authorIdToPhotoURL[message.authorId]}
                   alt="recipient-photo"
                   className={styles['recipient-photo']}
-                  onClick={() => navigate(`/users/${user.id}/profile`)}
+                  onClick={() => navigate(`/users/${message.authorId}/profile`)}
                 />
               </div>
               <div className={styles['responder-chat']}>

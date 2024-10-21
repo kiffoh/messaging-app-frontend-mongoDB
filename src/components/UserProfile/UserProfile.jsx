@@ -93,6 +93,12 @@ function UserProfile({group}) {
         async function fetchUserProfile() {
             if (user && parseInt(userId) === user.id) {
                 setChatData(user)
+
+                setProfilePic(user.photo);
+                currentProfilePic.current = user.photo;
+                setUsername(user.username);
+                setName(user.username);
+                setBio(user.bio);
                 setLoading(false)
             } 
             else {

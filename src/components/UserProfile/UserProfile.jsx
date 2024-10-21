@@ -23,7 +23,7 @@ function UserProfile({group}) {
     useEffect(() => {
         const validToken = checkTokenValidity()
         if (!validToken) navigate('/users/login')
-      }, [])
+      }, [checkTokenValidity, navigate])
 
     const [chatData, setChatData] = useState(null);
     const [combinedGroupName, setCombinedGroupName] = useState('')
@@ -93,13 +93,17 @@ function UserProfile({group}) {
         async function fetchUserProfile() {
             if (user && parseInt(userId) === user.id) {
                 setChatData(user)
+                setLoading(false)
             } 
             else {
                 try {
                     const response = await axios.get(`${backendURL}/${group ? 'groups': 'users'}/${userId}/profile`);
                     
-                    if (response.status != 200) return setErrors({general: 'An error occurred when fetching the profile.'}) 
-                    
+                    if (response.status !== 200) {
+                        setErrors({general: 'An error occurred when fetching the profile.'})
+                        return;
+                    }
+
                     setChatData(response.data)
                     
                     setProfilePic(response.data.photo);
@@ -121,12 +125,13 @@ function UserProfile({group}) {
         }
         fetchUserProfile();
 
-    }, [user, userId, group])
+    }, [user, userId, group, navigate])
 
     useEffect(() => {
         if (!chatData) return;
-        
-        if (group && chatData.name !== combinedGroupName) setUsername(chatData.name); // Triggers if the group name is user selected (e.g. not the default, combinedGroupName is the default) 
+
+        // Triggers if the group name is user selected (e.g. not the default, combinedGroupName is the default)
+        if (group && chatData.name !== combinedGroupName) setUsername(chatData.name);  
     }, [chatData, combinedGroupName, group])
 
     const [editProfilePic, setEditProfilePic] = useState(false);

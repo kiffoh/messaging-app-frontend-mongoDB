@@ -1,8 +1,85 @@
-# React + Vite
+# **EasyMessage - Messaging App (Frontend)**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [Demo](#demo)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
 
-Currently, two official plugins are available:
+## Introduction
+A brief overview of the messaging app, its purpose, and what problem it solves. You can also include any personal motivations for building the app.
+**EasyMessage** is a web application for direct and group messaging, inspired by WhatsApp. This project is one of the final projects in the [Odin Project](https://www.theodinproject.com/lessons/nodejs-messaging-app).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+NEED TO ADD A DESCRIPTION OF FRONTEND
+
+## Features
+
+- 🔐 **Secure Authentication**: JWT-based user authentication
+- 💬 **Real-time Messaging**: Instant message delivery using Socket.IO
+- 👥 **Group Chats**: Support for multiple users in conversations
+- 📸 **Media Sharing**: Image upload and sharing capabilities
+- 👤 **User Profiles**: Customisable user profiles with avatars
+- 📩 **Direct Messages**: One-to-one private conversations
+- 📱 **Responsive design**: for mobile and desktop
+
+# Demo
+[The website is live](https://messaging-app-client-eight.vercel.app/). Log in with the demo credentials to explore the features of the full-stack application:
+- **username**: guest
+- **password**: iamaguest
+
+## Technologies Used
+- **Frontend Framework**: React
+- **Styling**: CSS Modules and In-Line CSS
+- **Routing**: React Router
+- **Real-time Communication**: Socket.io
+- **Build Tool**: Vite
+- **API**: Axios for HTTP requests
+
+## Getting Started
+
+### Prerequisites
+Ensure the following software is installed before proceeding:
+- **Node.js** (v16+ recommended)
+- **npm**
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/kiffoh/messaging-app-client.git
+   ```
+2. Navigate to the project directory:
+```bash
+cd messaging-app-client
+```
+3. Install dependencies:
+```bash
+npm install
+```
+
+### Running the Application
+To start the development server, run:
+```bash
+npm start
+```
+Open your browser and go to the port specified.
+
+## Usage
+
+
+## Folder Structure
+```bash
+/src
+    /authentication      # authentication (checking if token is valid) context
+    /components          # Reusable components
+    /functions           # Reusable functions
+    /layouts             # Layouts used for React-Router
+    /routes              # URL routes for functions
+    /socketContext       # Socket.io Context
+    /assets              # Images, icons, etc.
+```

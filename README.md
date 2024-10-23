@@ -65,7 +65,7 @@ npm install
 ### Running the Application
 To start the development server, run:
 ```bash
-npm start
+npm run dev
 ```
 Open your browser and go to the port specified.
 
@@ -82,4 +82,16 @@ Open your browser and go to the port specified.
     /routes              # URL routes for functions
     /socketContext       # Socket.io Context
     /assets              # Images, icons, etc.
+    /images           # Images, icons, etc.
+        /styles           # Global and override styles
+            global.css          # Global CSS styles
+            LogInGlobalOverride.css  # Login-specific overrides
+            SignUpGlobalOverride.css # Signup-specific overrides
+
+    App.jsx                # Main app component
+    ErrorPage.jsx          # Error page component
+    Home.jsx               # Home page component
+    app.module.css         # App-specific CSS, could be moved into the same folder as App.jsx
+    main.jsx               # React app entry point
+    index.css              # Main CSS file for styling the app
 ```

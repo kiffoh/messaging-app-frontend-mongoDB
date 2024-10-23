@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import '../../global.css'
+import '../../assets/styles/global.css'
 import { useNavigate } from 'react-router-dom';
 import styles from './signup.module.css'
-import '../../SignUpGlobalOverride.css'
+import '../../assets/styles/SignUpGlobalOverride.css'
 import useAuth from '../../authentication/useAuth';
 import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './global.css'
+import './assets/styles/global.css'
 import NavBar from './components/NavBar/NavBar'
 import styles from './app.module.css'
 import useAuth from './authentication/useAuth'

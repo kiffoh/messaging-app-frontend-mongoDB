@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import '../../global.css'
+import '../../assets/styles/global.css'
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'
 import styles from './login.module.css'
-import '../../LogInGlobalOverride.css'
+import '../../assets/styles/LogInGlobalOverride.css'
 import useAuth from '../../authentication/useAuth';
 import axios from 'axios';
 const backendURL = import.meta.env.VITE_SERVER_URL;

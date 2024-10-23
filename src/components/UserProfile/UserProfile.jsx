@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import NavBar from '../NavBar/NavBar';
 import styles from './userprofile.module.css'
-import useAuth from '../../Authentification/useAuth';
+import useAuth from '../../authentication/useAuth';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import nameGroup from '../../functions/nameGroup';

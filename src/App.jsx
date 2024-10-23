@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './global.css'
 import NavBar from './components/NavBar/NavBar'
 import styles from './app.module.css'
-import useAuth from './Authentification/useAuth'
+import useAuth from './authentication/useAuth'
 import axios from 'axios'
 import ChatContainer from './components/ChatContainer/ChatContainer'
 import { RiChatNewLine } from "react-icons/ri";

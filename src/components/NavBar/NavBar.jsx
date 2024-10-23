@@ -1,5 +1,5 @@
 import styles from './navbar.module.css'
-import useAuth from '../../Authentification/useAuth';
+import useAuth from '../../authentication/useAuth';
 import { useEffect, useState } from 'react';
 const messageIcon =  'https://res.cloudinary.com/dmaq0peyx/image/upload/v1727879837/messagingIcon_zjw84l.webp'
 

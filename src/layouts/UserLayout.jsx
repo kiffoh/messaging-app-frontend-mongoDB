@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import useAuth from '../Authentification/useAuth';
+import useAuth from '../authentication/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 

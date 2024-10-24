@@ -70,7 +70,26 @@ npm run dev
 Open your browser and go to the port specified.
 
 ## Usage
+### Messaging
+- **Real-time Chat:** Users can send and receive messages in real time using Socket.io. Conversations are organised into either group chats (3+ members) or direct messages (1-to-1).
 
+### CRUD for Messaging
+- **Create, Read, Update, Delete (CRUD):** Users can send, edit, and delete messages. Intuitive delete and edit functionality is triggered by clicking on a message. Only the message author has access to the delete and update options for their own messages.
+
+### CRUD for Profiles and Groups
+- **User Profiles:** Users can create accounts, edit their profile information (username, bio, and photo), and delete their own profiles.
+- **Group Profiles:** Group profiles can be created by any user. Group admins (or the group creator) can edit or delete the group profile, including the group name, bio, and profile photo. These features ensure secure and appropriate access to profile management.
+
+### Mobile-Friendly Messaging
+- **Responsive Design:** The messaging interface is optimised for mobile devices, ensuring messages, buttons, and forms are easily usable on smaller screens.
+
+### Image and Attachment Support
+- **Sending Images and Attachments:** The message input form supports uploading images and attachments.
+
+### Additional points
+- **Message Timestamps:** Hovering over messages reveals the timestamps, allowing users to track the conversation history. If a message has been edited, the timestamp will display "Last edited" instead of the original creation time.
+
+- **Seamless Contact Addition:** Adding contacts is streamlined and can be completed in just a few clicks, making it easy for users to manage their contacts.
 
 ## Folder Structure
 ```bash

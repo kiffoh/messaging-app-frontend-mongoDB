@@ -111,6 +111,7 @@ function MessageInputForm({displayedChat, user, setDisplayedChat, setError}) {
                     name='message'
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    aria-label="Message"
                 />
                 <div className={styles['send-btn-container']}>
                     <button type='submit' className={styles['send-btn']}>

@@ -57,6 +57,7 @@
 .chat-name {
     font-weight: bold;
     margin: 0;
+    padding: 0 0.5em;
 }
 
 .last-chat-message {

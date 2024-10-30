@@ -30,6 +30,13 @@
     padding-right: 5em;
 }
 
+@media (max-width: 550px) {
+    .links{
+        padding: 0;
+        margin: 0 0.75em;
+    }
+}
+
 .profile-container {
     position: relative;
     display: inline-block;
@@ -55,4 +62,11 @@
     display: flex;
     gap: 1em;
     */
+}
+
+.messages {
+    font-weight: 500;
+    color: #2430FF;
+    text-decoration: inherit;
+    box-sizing: border-box;
 }

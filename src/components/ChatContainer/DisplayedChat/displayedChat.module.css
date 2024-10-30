@@ -57,6 +57,22 @@
     gap: 1em;
 }
 
+@media (max-width: 550px) {
+    .chat-header {
+        margin: 0 0.5em 0.5em 0.5em;
+        grid-template-columns: 0 1fr;
+        gap: 0.5em;
+    }
+
+    .chat-body {
+        padding: 2em 0.5em;
+    }
+
+    .user-chat, .responder-chat {
+        font-size: 1em;
+    }
+}
+
 .chat-profile-container {
     display: flex;
     user-select: none;

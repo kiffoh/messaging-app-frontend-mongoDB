@@ -74,7 +74,7 @@
     position: relative;
     gap: 2em;
     background-color: var(--default-colour-light);
-    border-radius: 2%;
+    border-radius: 16px;
     padding: 1em;
 }
 
@@ -87,6 +87,12 @@
     display: flex;
     justify-content: center;
     gap: 5em;
+}
+
+@media (max-width: 550px) {
+    .search-container {
+        gap: 1em;
+    }
 }
 
 .add-contact-btn-container {

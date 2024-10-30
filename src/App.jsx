@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './assets/styles/global.css'
 import NavBar from './components/NavBar/NavBar'
 import styles from './app.module.css'
@@ -89,21 +89,45 @@ function App() {
   // Abstracted to the App component so state can be set to false in instances greater than the Messages component
   const [userClick, setUserClick] = useState(false);
 
+  // Used for css styling with mobile screens (Specifically max-screen: 550px)
+  // Not enough screen space for both elements to be displayed, so will be programmatically switched between
+  const userChatsContainer = useRef(null);
+  const chatBarDiv = useRef(null)
+  const displayedChatContainerDiv = useRef(null);
+  const appBodyDiv = useRef(null);
+
+  const toggleDisplayChange = () => {
+    if (window.screen.width > 550) {
+      return;
+    }
+
+    if (window.getComputedStyle(chatBarDiv.current).display === 'none') {
+      chatBarDiv.current.style.display = 'grid';
+      displayedChatContainerDiv.current.style.display = 'none';
+    } else if (window.getComputedStyle(displayedChatContainerDiv.current).display === 'none') {
+      chatBarDiv.current.style.display = 'none';
+      displayedChatContainerDiv.current.style.display = 'block';
+    }
+}
+
   if (loading) return <h1>Loading... </h1>
 
   return (
     <div className={styles['app-root']} onClick={() => setUserClick(false)}>
-      <NavBar />
-      <div className={styles['app-body']}>
-        <div className={styles['chat-bar']}>
+      <NavBar toggleDisplayChange={toggleDisplayChange}/>
+      <div className={styles['app-body']} ref={appBodyDiv}>
+        <div className={styles['chat-bar']} ref={chatBarDiv}>
           <div className={styles['chat-title-container']}>
             <h2 className={styles['chat-title']}>Chats</h2>
             {error && <h3 className={styles['error']}>{error}</h3>}
-            <button onClick={() => setNewChat(true)} className={styles['new-chat-btn']}>
+            <button className={styles['new-chat-btn']} onClick={() => {
+              setNewChat(true);
+              toggleDisplayChange();
+              }} >
               <RiChatNewLine size={24}/>
             </button>
           </div>
-          <div className={styles['user-chats-container']}>
+          <div className={styles['user-chats-container']} ref={userChatsContainer}>
             {userChats.length > 0 ? (
               userChats
               .filter(chat => chat.messages.length > 0) // Filter out chats with no messages
@@ -111,7 +135,10 @@ function App() {
                 <div 
                   className={styles[displayedChatId === chat.id ? 'user-chat-highlighted' : 'user-chat']} 
                   key={chat.id} 
-                  onClick={() => setDisplayedChatId(chat.id)}
+                  onClick={() => {
+                    setDisplayedChatId(chat.id);
+                    toggleDisplayChange();
+                  }}
                 >
                   <p className={styles['chat-name']}>{chat.name}</p>
                   <p className={styles['last-chat-message']}>{chat.messages[0].content}</p>
@@ -122,7 +149,7 @@ function App() {
             )}
           </div>
         </div>
-        <div className={styles['displayed-chat-container']}>
+        <div className={styles['displayed-chat-container']} ref={displayedChatContainerDiv}>
           <ChatContainer
             user={user}
             displayedChat={displayedChat}

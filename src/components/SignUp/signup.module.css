@@ -138,7 +138,7 @@ button {
     }
 }
 
-@media (min-width: 550px) and (max-width: 800px) {
+@media (min-width: 551px) and (max-width: 800px) {
     .signup-form-wrapper {
         background-color: var(--default-colour-green);
         border-left: 3px solid var(--default-colour-soft-green)

@@ -97,7 +97,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                 });
                 
                 if (response.status === 200 || response.status === 201) {
-                    const data = response.data.newGroup || response.data.existingGroup;
+                    const data = response.data.formattedGroup;
                     
                     setDisplayedChat(data);
                     setDisplayedChatId(data.id);
@@ -110,6 +110,7 @@ function GroupMessage({setNewChat, filteredContacts, search, setSearch, setDispl
                 } 
             }
         } catch (err) {
+            console.log(err)
             if (err.response.status === 400) {
                 const validationErrors = err.response.data.errors;
                 if (validationErrors) {

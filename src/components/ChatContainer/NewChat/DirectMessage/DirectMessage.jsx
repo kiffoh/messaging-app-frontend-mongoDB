@@ -35,7 +35,7 @@ function DirectMessage({setNewChat, filteredContacts, search, setSearch, setDisp
 
                 if (response.status === 200 || response.status === 201) {
                     console.log('GOING THROUGH RESPONSE')
-                    const data = response.data.newGroup || response.data.existingGroup;
+                    const data = response.data.formattedGroup;
                     
                     setDisplayedChat(data);
                     setDisplayedChatId(data.id);

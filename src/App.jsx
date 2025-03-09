@@ -44,10 +44,11 @@ function App() {
     if (userChats.length > 0 && displayedChatId === null) {
       const chatsWithMessages = userChats.filter(chat => chat.messages && chat.messages.length > 0);
       if (chatsWithMessages.length > 0) {
+        console.log(userChats)
         setDisplayedChatId(chatsWithMessages[0].id);
       }
     }
-      
+
     if (!displayedChat || displayedChat.id != displayedChatId) {
       const selectedChat = userChats.find(chat => chat.id === displayedChatId); // Filter by chat ID
       setDisplayedChat(selectedChat); // Avoid setting undefined
